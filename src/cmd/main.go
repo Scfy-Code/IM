@@ -4,35 +4,10 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"text/template"
 
-	"github.com/Scfy-Code/scfy-im/entry"
-
+	"github.com/Scfy-Code/scfy-im/handler"
 	"golang.org/x/net/websocket"
 )
-
-// IndexHandler 首页
-type IndexHandler struct {
-	viewPath string
-}
-
-func (ih IndexHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	//1、验证是否登录(登录后返回页面/未登录重定向登录页面)
-	indexEntry := &entry.UserEntry{ID: "123456", RemarkName: "林昊天", Avatar: "/static/images/avatar.png"}
-	chatList := []map[string]interface{}{{"ID": "77425000", "RemarkName": "汤姆", "Avatar": "/static/images/avatar.png"}}
-	friendList := []map[string]interface{}{{"ID": "77425000", "RemarkName": "汤姆", "Avatar": "/static/images/avatar.png"}}
-	startList := []map[string]interface{}{{"ID": "77425000", "RemarkName": "汤姆", "Avatar": "/static/images/avatar.png"}}
-	indexEntry.ChatList = chatList
-	indexEntry.FriendList = friendList
-	indexEntry.StartList = startList
-	//2、
-	view, err := template.ParseFiles(ih.viewPath)
-	if err == nil {
-		view.Execute(w, indexEntry)
-	} else {
-		log.Println(err.Error())
-	}
-}
 
 // Talk 会话方法
 func Talk(conn *websocket.Conn) {
@@ -63,8 +38,8 @@ func main() {
 }
 func init() {
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("../lib/statics/"))))
-	http.Handle("/", IndexHandler{"../lib/views/index.scfy"})
-	http.Handle("/index.scfy", IndexHandler{"../lib/views/index.scfy"})
+	http.Handle("/", handler.IndexHandler{"../lib/views/index.scfy"})
+	http.Handle("/index.scfy", handler.IndexHandler{"../lib/views/index.scfy"})
 }
 func init() {
 	http.Handle("/talk.action", websocket.Handler(Talk))

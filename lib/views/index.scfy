@@ -27,7 +27,6 @@
                     <ul class="nav nav-tabs flex-column">
                         <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#talks">会话列表</a></li>
                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#friends">好友列表</a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#stars">星标好友</a></li>
                     </ul>
                 </div>
                 <div class="form-control text-center tab-content" style="width:15%;height:100%">
@@ -42,15 +41,6 @@
                     </div>
                     <div class="tab-pane" id="friends" style="height: 100%;width:100%;">
                         <h4>好友列表</h4>
-                        <div class="list-group text-left" style="height:97%;width:100%;overflow-y:auto">
-                            {{range .ChatList}}
-                            <a href="#" class="list-group-item list-group-item-warning">张三<span
-                                    class="float-right badge badge-pill badge-danger">1</span></a>
-                            {{end}}
-                        </div>
-                    </div>
-                    <div id="stars" class="tab-pane" style="height: 100%;width:100%;">
-                        <h4>星标好友</h4>
                         <div class="list-group text-left" style="height:97%;width:100%;overflow-y:auto">
                             {{range .ChatList}}
                             <a href="#" class="list-group-item list-group-item-warning">张三<span
