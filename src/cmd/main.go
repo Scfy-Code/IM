@@ -18,7 +18,13 @@ type IndexHandler struct {
 
 func (ih IndexHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	//1、验证是否登录(登录后返回页面/未登录重定向登录页面)
-	indexEntry := entry.UserEntry{"123456", "林昊天", "/static/images/avatar.png"}
+	indexEntry := &entry.UserEntry{ID: "123456", RemarkName: "林昊天", Avatar: "/static/images/avatar.png"}
+	chatList := []map[string]interface{}{{"ID": "77425000", "RemarkName": "汤姆", "Avatar": "/static/images/avatar.png"}}
+	friendList := []map[string]interface{}{{"ID": "77425000", "RemarkName": "汤姆", "Avatar": "/static/images/avatar.png"}}
+	startList := []map[string]interface{}{{"ID": "77425000", "RemarkName": "汤姆", "Avatar": "/static/images/avatar.png"}}
+	indexEntry.ChatList = chatList
+	indexEntry.FriendList = friendList
+	indexEntry.StartList = startList
 	//2、
 	view, err := template.ParseFiles(ih.viewPath)
 	if err == nil {
@@ -32,12 +38,18 @@ func (ih IndexHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func Talk(conn *websocket.Conn) {
 	var message string
 	for {
-		err := websocket.Message.Receive(conn, &message)
-		if err == nil {
-			log.Println(message)
-			websocket.Message.Send(conn, "你好世界")
+		err0 := websocket.Message.Receive(conn, &message)
+		if err0 == nil {
+			log.Printf("收到消息！消息%s", message)
 		} else {
-			log.Println(err.Error())
+			log.Printf("消息发送失败！错误信息：%s", err0.Error())
+			break
+		}
+		err1 := websocket.Message.Send(conn, "你好世界")
+		if err1 == nil {
+			log.Println("消息发送成功")
+		} else {
+			log.Printf("消息发送失败！错误信息：%s", err1.Error())
 		}
 	}
 }

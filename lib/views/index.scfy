@@ -10,7 +10,7 @@
         <script src="/static/plugins/popper/popper.min.js"></script>
         <script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
         <script src="/static/bussiness/index/index.js"></script>
-        <title>{{RemarkName}}</title>
+        <title>{{.RemarkName}}</title>
     </head>
 
     <body style="width: 100%;height: 100%;">
@@ -34,54 +34,33 @@
                     <div class="tab-pane active" id="talks" style="height: 100%;width:100%;">
                         <h4>会话列表</h4>
                         <div class="list-group text-left" style="height:97%;width:100%;overflow-y:auto">
-                            <a href="#" class="list-group-item list-group-item-warning">张三<span
+                            {{range .ChatList}}
+                            <a href="#" class="list-group-item list-group-item-warning">{{.RemarkName}}<span
                                     class="float-right badge badge-pill badge-danger">1</span></a>
-                            <a href="#" class="list-group-item list-group-item-light">李四</a>
-                            <a href="#" class="list-group-item list-group-item-primary">王五</a>
-                            <a href="#" class="list-group-item list-group-item-primary">赵六</a>
-                            <a href="#" class="list-group-item list-group-item-primary">孙七</a>
-                            <a href="#" class="list-group-item list-group-item-primary">朱八</a>
+                            {{end}}
                         </div>
                     </div>
                     <div class="tab-pane" id="friends" style="height: 100%;width:100%;">
                         <h4>好友列表</h4>
                         <div class="list-group text-left" style="height:97%;width:100%;overflow-y:auto">
+                            {{range .ChatList}}
                             <a href="#" class="list-group-item list-group-item-warning">张三<span
                                     class="float-right badge badge-pill badge-danger">1</span></a>
-                            <a href="#" class="list-group-item list-group-item-light">李四</a>
-                            <a href="#" class="list-group-item list-group-item-primary">王五</a>
-                            <a href="#" class="list-group-item list-group-item-primary">赵六</a>
-                            <a href="#" class="list-group-item list-group-item-primary">孙七</a>
-                            <a href="#" class="list-group-item list-group-item-primary">朱八</a>
+                            {{end}}
                         </div>
                     </div>
                     <div id="stars" class="tab-pane" style="height: 100%;width:100%;">
                         <h4>星标好友</h4>
                         <div class="list-group text-left" style="height:97%;width:100%;overflow-y:auto">
+                            {{range .ChatList}}
                             <a href="#" class="list-group-item list-group-item-warning">张三<span
                                     class="float-right badge badge-pill badge-danger">1</span></a>
-                            <a href="#" class="list-group-item list-group-item-light">李四</a>
-                            <a href="#" class="list-group-item list-group-item-primary">王五</a>
-                            <a href="#" class="list-group-item list-group-item-primary">赵六</a>
-                            <a href="#" class="list-group-item list-group-item-primary">孙七</a>
-                            <a href="#" class="list-group-item list-group-item-primary">朱八</a>
+                            {{end}}
                         </div>
                     </div>
                 </div>
                 <div class="form-control" style="width:81%;height:100%">
-                    <div class="container" style="height:80%;width:100% ">
-                        <div class="row bg-primary">
-                            <div class="col-1"> 你好世界</div>
-                            <div class="col-2"> 我不好</div>
-                            <div class="col-3"> 不好算了</div>
-                            <div class="col-4"> 我不好你也别想好</div>
-                            <div class="col-5"> 那咱俩就这么候着</div>
-                            <div class="col-6"> 谁怕谁</div>
-                        </div>
-
-
-
-
+                    <div class="" style="height:80%;width:100% ">
 
                     </div>
                     <div style="height: 20%;width:100%">
