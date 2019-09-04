@@ -17,7 +17,7 @@ func Talk(conn *websocket.Conn) {
 	for {
 		err0 := websocket.Message.Receive(conn, &message)
 		if err0 == nil {
-			log.Printf("收到消息！消息%s", message)
+			log.Printf("收到消息:%s", message)
 		} else {
 			log.Printf("消息发送失败！错误信息：%s", err0.Error())
 			break
@@ -42,8 +42,8 @@ func main() {
 }
 func init() {
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("../lib/statics/"))))
-	http.Handle("/", handler.IndexHandler{"../lib/views/index.html"})
-	http.Handle("/index.scfy", handler.IndexHandler{"../lib/views/index.html"})
+	http.Handle("/", handler.IndexHandler{"../lib/views/index.scfy"})
+	http.Handle("/index.scfy", handler.IndexHandler{"../lib/views/index.scfy"})
 }
 func init() {
 	http.Handle("/talk.action", websocket.Handler(Talk))
