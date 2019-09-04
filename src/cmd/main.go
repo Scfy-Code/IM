@@ -1,9 +1,11 @@
 package main
 
 import (
+	"encoding/json"
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/Scfy-Code/scfy-im/handler"
 	"golang.org/x/net/websocket"
@@ -20,7 +22,9 @@ func Talk(conn *websocket.Conn) {
 			log.Printf("消息发送失败！错误信息：%s", err0.Error())
 			break
 		}
-		err1 := websocket.Message.Send(conn, "你好世界")
+		var sendMessage = map[string]interface{}{"id": "456", "content": "你好世界", "time": time.Now().Unix(), "messageType": "text"}
+		data, _ := json.Marshal(sendMessage)
+		err1 := websocket.Message.Send(conn, string(data))
 		if err1 == nil {
 			log.Println("消息发送成功")
 		} else {
@@ -38,8 +42,8 @@ func main() {
 }
 func init() {
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("../lib/statics/"))))
-	http.Handle("/", handler.IndexHandler{"../lib/views/index.scfy"})
-	http.Handle("/index.scfy", handler.IndexHandler{"../lib/views/index.scfy"})
+	http.Handle("/", handler.IndexHandler{"../lib/views/index.html"})
+	http.Handle("/index.scfy", handler.IndexHandler{"../lib/views/index.html"})
 }
 func init() {
 	http.Handle("/talk.action", websocket.Handler(Talk))
