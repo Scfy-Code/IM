@@ -1,19 +1,18 @@
-package handler
+package index
 
 import (
-	"log"
 	"net/http"
 	"text/template"
 
 	"github.com/Scfy-Code/scfy-im/entry"
 )
 
-// IndexHandler 首页
-type IndexHandler struct {
-	ViewPath string
+// IndexView 首页
+type IndexView struct {
+	viewTemplate *template.Template
 }
 
-func (ih IndexHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (ih IndexView) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	//1、验证是否登录(登录后返回页面/未登录重定向登录页面)
 
 	self := entry.UserEntry{"123", "scfy", "774250", "scfymail@gmail.com", "林昊天", "/static/images/avatar.png"}
@@ -23,10 +22,13 @@ func (ih IndexHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	indexEntry := &entry.IndexEntry{self, talkList, friendList, groupList}
 	//2、
-	view, err := template.ParseFiles(ih.ViewPath)
+	ih.viewTemplate.Execute(w, indexEntry)
+}
+func NewIndexView() *IndexView {
+	indexView, err := template.ParseFiles("../lib/views/index/index.scfy")
 	if err == nil {
-		view.Execute(w, indexEntry)
+		return &IndexView{indexView}
 	} else {
-		log.Println(err.Error())
+		return nil
 	}
 }

@@ -1,5 +1,9 @@
 package entry
 
+import (
+	"time"
+)
+
 // IndexEntry 首页
 type IndexEntry struct {
 	UserEntry              //当前用户
@@ -16,4 +20,12 @@ type UserEntry struct {
 	Email      string
 	RemarkName string
 	Avatar     string
+}
+
+// Message 消息的结构体
+type Message struct {
+	SenderID   string
+	ReceiverID string
+	Time       time.Time
+	Content    string
 }
