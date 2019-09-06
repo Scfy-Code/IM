@@ -5,9 +5,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/Scfy-Code/scfy-im/handler"
-	chatController "github.com/Scfy-Code/scfy-im/handler/chat"
 	indexController "github.com/Scfy-Code/scfy-im/handler/index"
+	"github.com/Scfy-Code/scfy-im/handler/sync"
 	userController "github.com/Scfy-Code/scfy-im/handler/users"
 	"golang.org/x/net/websocket"
 )
@@ -21,11 +20,10 @@ func main() {
 }
 func init() {
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("../lib/statics/"))))
-	http.Handle("/index.scfy", indexController.NewIndexView())
-	http.Handle("/users/sign_in.scfy", userController.NewSignInView())
-	http.Handle("/users/sign_in.action", userController.NewSignInAction())
-	http.Handle("/users/sign_up.scfy", userController.NewSignUpView())
-	http.Handle("/users/sign_up.action", userController.NewSignInAction())
-	http.handle("/chat/send.action", chatController.NewSendMessage())
-	http.Handle("/talk.action", websocket.Handler(handler.Talk))
+	http.Handle("/index.scfy", indexController.IndexView)
+	http.Handle("/users/sign_in.scfy", userController.SigninView)
+	http.Handle("/users/sign_in.action", userController.SigninAction)
+	http.Handle("/users/sign_up.scfy", userController.SignupView)
+	http.Handle("/users/sign_up.action", userController.SignupAction)
+	http.Handle("/talk.action", websocket.Handler(sync.Talk))
 }

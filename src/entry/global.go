@@ -7,4 +7,6 @@ var (
 	MessageChannel = make(map[string]chan Message)
 	// ConnectionMap 连接存储器存储所有的连接
 	ConnectionMap = make(map[string]*websocket.Conn)
+	// SessionMap session存储器
+	SessionMap = make(map[string]UserEntry)
 )

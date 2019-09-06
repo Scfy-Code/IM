@@ -1,18 +1,20 @@
 package index
 
 import (
+	"html/template"
 	"net/http"
-	"text/template"
 
 	"github.com/Scfy-Code/scfy-im/entry"
 )
 
-// IndexView 首页
-type IndexView struct {
-	viewTemplate *template.Template
+var IndexView = &indexView{entry.Views["index.scfy"]}
+
+// indexView 首页
+type indexView struct {
+	indexTemplate *template.Template
 }
 
-func (ih IndexView) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (iv indexView) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	//1、验证是否登录(登录后返回页面/未登录重定向登录页面)
 
 	self := entry.UserEntry{"123", "scfy", "774250", "scfymail@gmail.com", "林昊天", "/static/images/avatar.png"}
@@ -22,13 +24,5 @@ func (ih IndexView) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	indexEntry := &entry.IndexEntry{self, talkList, friendList, groupList}
 	//2、
-	ih.viewTemplate.Execute(w, indexEntry)
-}
-func NewIndexView() *IndexView {
-	indexView, err := template.ParseFiles("../lib/views/index/index.scfy")
-	if err == nil {
-		return &IndexView{indexView}
-	} else {
-		return nil
-	}
+	iv.indexTemplate.Execute(w, indexEntry)
 }
