@@ -13,7 +13,7 @@ type IndexService struct {
 }
 
 func NewIndexService() *IndexService {
-	return &IndexService{database.MysqlDB}
+	return &IndexService{database.MysqlClient}
 }
 func (is IndexService) SelectFriends(id string) []map[string]interface{} {
 	rows, err := is.db.Query("query", id)

@@ -3,8 +3,9 @@ package entry
 import (
 	"html/template"
 	"io/ioutil"
-	"log"
 	"os"
+
+	"github.com/Scfy-Code/scfy-im/logger"
 
 	"github.com/Scfy-Code/scfy-im/config"
 )
@@ -15,7 +16,7 @@ var Views = scan(config.APPCFG.ViewDir)
 func scan(dir string) (views map[string]*template.Template) {
 	files, err := ioutil.ReadDir(dir)
 	if err != nil {
-		log.Printf("扫描%s目录出错！错误信息%s", dir, err.Error())
+		logger.ErrPrintf("扫描%s目录出错！错误信息%s", dir, err.Error())
 		os.Exit(2)
 	}
 	for _, file := range files {
@@ -24,7 +25,7 @@ func scan(dir string) (views map[string]*template.Template) {
 		} else {
 			tmp, err0 := template.ParseFiles(dir + "/" + file.Name())
 			if err0 != nil {
-				log.Printf("路径为%s的模板解析出现错误！错误信息：%s", dir+""+file.Name(), err0.Error())
+				logger.ErrPrintf("路径为%s的模板解析出现错误！错误信息：%s", dir+""+file.Name(), err0.Error())
 			}
 			views[file.Name()] = tmp
 		}

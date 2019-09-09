@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"regexp"
 
-	"github.com/Scfy-Code/scfy-im/service/users"
+	"github.com/Scfy-Code/scfy-im/scope"
 
-	scope "github.com/Scfy-Code/scfy-im/scope/imp"
+	"github.com/Scfy-Code/scfy-im/service/users"
 
 	"github.com/Scfy-Code/scfy-im/entry"
 )

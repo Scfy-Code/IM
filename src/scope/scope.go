@@ -1,4 +1,4 @@
-package api
+package scope
 
 import (
 	"encoding/json"
@@ -6,7 +6,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/Scfy-Code/Toolkits/session/api"
+	"github.com/Scfy-Code/scfy-im/database"
+
 	"github.com/go-redis/redis"
 )
 
@@ -67,7 +68,7 @@ type session struct {
 }
 
 // NewSession 通过请求获取session域
-func NewSession(r *http.Request) api.Session {
+func NewSession(r *http.Request) Session {
 	var sessionID string
 	cookie, err := r.Cookie("SESSIONID")
 	if err != nil {

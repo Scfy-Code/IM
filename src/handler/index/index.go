@@ -7,7 +7,7 @@ import (
 
 	"github.com/Scfy-Code/scfy-im/service/index"
 
-	scope "github.com/Scfy-Code/scfy-im/scope/imp"
+	"github.com/Scfy-Code/scfy-im/scope"
 
 	"github.com/Scfy-Code/scfy-im/entry"
 )

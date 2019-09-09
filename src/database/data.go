@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/Scfy-Code/scfy-im/config"
-	"github.com/Scfy-Code/scfy-im/log"
+	"github.com/Scfy-Code/scfy-im/logger"
 	"github.com/go-redis/redis"
 
 	//只引用包中的init函数
@@ -16,14 +16,14 @@ var (
 	// MysqlClient mysql客户端
 	MysqlClient = newMysqlClient()
 	// redisClient redis客户端
-	redisClient = newRedisClient()
+	RedisClient = newRedisClient()
 )
 
 // NewMysqlClient 创建一个mysql客户端
 func newMysqlClient() *sql.DB {
 	db, err := sql.Open(config.APPCFG.DataBaseCfg.DriverName, config.APPCFG.DataBaseCfg.DataSourceName)
 	if err != nil {
-		log.WarnLog(err.Error())
+		logger.ErrPrintf("初始化数据库连接错误！错误原因：%s", err.Error())
 		os.Exit(2)
 	}
 	return db

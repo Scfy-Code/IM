@@ -3,13 +3,14 @@ package users
 import (
 	"database/sql"
 
+	"github.com/Scfy-Code/scfy-im/logger"
+
 	"github.com/Scfy-Code/scfy-im/database"
-	"github.com/Scfy-Code/scfy-im/log"
 	"github.com/Scfy-Code/scfy-im/util"
 )
 
 // UserService 对外开放一个对象便于操作数据
-var UserService = &userService{database.MysqlDB}
+var UserService = &userService{database.MysqlClient}
 
 // userService 数据交互结构体
 type userService struct {
@@ -20,7 +21,7 @@ type userService struct {
 func (us userService) Login(email, password string) map[string]interface{} {
 	row, err := us.Conn.Query("select id,remarkname,avatar,email,ignature from user where email=? and password=?", email, password)
 	if err != nil {
-		log.WarnLog(err.Error())
+		logger.WarnPrintf("用户登录出错！错误信息：%s", err.Error())
 		return nil
 	}
 	if row.Next() {

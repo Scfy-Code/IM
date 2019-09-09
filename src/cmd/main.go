@@ -4,18 +4,17 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/Scfy-Code/scfy-im/log"
-
 	"github.com/Scfy-Code/scfy-im/handler/index"
 	"github.com/Scfy-Code/scfy-im/handler/sync"
 	"github.com/Scfy-Code/scfy-im/handler/users"
+	"github.com/Scfy-Code/scfy-im/logger"
 	"golang.org/x/net/websocket"
 )
 
 func main() {
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
-		log.ErrLog(err.Error())
+		logger.ErrPrintf("端口监听错误！错误原因：%s", err.Error())
 		os.Exit(2)
 	}
 }

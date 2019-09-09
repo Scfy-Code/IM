@@ -12,11 +12,11 @@ var APPCFG = &AppCfg{}
 
 // AppCfg 应用配置相关
 type AppCfg struct {
-	StaticDir   string `json:"staticDir"` //静态文件目录
-	ViewDir     string `json:"viewDir"`   //模板页面目录
-	DataBaseCfg `json:"dataBase"`
-	RedisCfg    `json:"redis"`
-	LoggerCfg   `json:"logger"`
+	StaticDir   string            `json:"staticDir"` //静态文件目录
+	ViewDir     string            `json:"viewDir"`   //模板页面目录
+	DataBaseCfg `json:"dataBase"` //sql数据库的配置
+	RedisCfg    `json:"redis"`    //缓存数据库的配置
+	LoggerCfg   `json:"logger"`   //日志的配置
 }
 
 // DataBaseCfg 关系型数据库配置相关

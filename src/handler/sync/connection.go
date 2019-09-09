@@ -1,8 +1,8 @@
 package sync
 
 import (
-	"github.com/Scfy-Code/scfy-im/log"
-	scope "github.com/Scfy-Code/scfy-im/scope/imp"
+	"github.com/Scfy-Code/scfy-im/logger"
+	"github.com/Scfy-Code/scfy-im/scope"
 
 	"golang.org/x/net/websocket"
 )
@@ -19,7 +19,7 @@ func Talk(conn *websocket.Conn) {
 		return
 	}
 	sessionID := cookie1.Value
-	log.WarnLog(sessionID)
+	logger.InfoPrintln(sessionID)
 	account := cookie2.Value
 	//3、验证账户的信息
 	//4、存入域中
