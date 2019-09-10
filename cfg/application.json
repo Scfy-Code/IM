@@ -6,7 +6,7 @@
         "dataSourceName": "root:Scfy774250.@tcp(127.0.0.1:3306)/scfy_im?charset=UTF8"
     },
     "redis": {
-        "cluster": false,
+        "cluster": true,
         "options": {
             "Addr": "127.0.0.1:6379"
         },

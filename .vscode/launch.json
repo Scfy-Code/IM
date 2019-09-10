@@ -9,7 +9,7 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${workspaceRoot}/bin/scfy-im.exe",
+            "program": "${workspaceRoot}/bin/scfy-im",
             "env": {},
             "args": []
         }
