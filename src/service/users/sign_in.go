@@ -19,14 +19,10 @@ type userService struct {
 
 // Login 登录方法
 func (us userService) Login(email, password string) map[string]interface{} {
-	row, err := us.Conn.Query("select id,remarkname,avatar,email,ignature from user where email=? and password=?", email, password)
+	row, err := us.Conn.Query("select id,remarkname,avatar,email,signature from user where email=? and password=?", email, password)
 	if err != nil {
 		logger.WarnPrintf("用户登录出错！错误信息：%s", err.Error())
 		return nil
 	}
-	if row.Next() {
-		user := util.RowsToMap(row)[0]
-		return user
-	}
-	return nil
+	return util.RowsToMap(row)[0]
 }

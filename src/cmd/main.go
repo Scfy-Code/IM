@@ -25,5 +25,5 @@ func init() {
 	http.Handle("/user/sign_in.action", users.NewSigninAction())
 	http.Handle("/user/sign_up.scfy", users.NewSignupView())
 	http.Handle("/user/sign_up.action", users.NewSignupAction())
-	http.Handle("/talk.action", websocket.Handler(sync.Talk))
+	http.Handle("/talk.action", websocket.Handler(sync.CreateConn))
 }

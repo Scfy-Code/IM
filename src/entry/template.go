@@ -5,15 +5,15 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/Scfy-Code/scfy-im/logger"
-
 	"github.com/Scfy-Code/scfy-im/config"
+
+	"github.com/Scfy-Code/scfy-im/logger"
 )
 
 // Views 存储所有的视图
-var Views = scan(config.APPCFG.ViewDir)
+var Views = make(map[string]*template.Template)
 
-func scan(dir string) (views map[string]*template.Template) {
+func scan(dir string) {
 	files, err := ioutil.ReadDir(dir)
 	if err != nil {
 		logger.ErrPrintf("扫描%s目录出错！错误信息%s", dir, err.Error())
@@ -27,8 +27,10 @@ func scan(dir string) (views map[string]*template.Template) {
 			if err0 != nil {
 				logger.ErrPrintf("路径为%s的模板解析出现错误！错误信息：%s", dir+""+file.Name(), err0.Error())
 			}
-			views[file.Name()] = tmp
+			Views[file.Name()] = tmp
 		}
 	}
-	return views
+}
+func init() {
+	scan(config.APPCFG.ViewDir)
 }

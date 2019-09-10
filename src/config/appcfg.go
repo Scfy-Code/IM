@@ -5,6 +5,8 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+
+	"github.com/go-redis/redis"
 )
 
 // APPCFG 应用的配置
@@ -27,7 +29,9 @@ type DataBaseCfg struct {
 
 // RedisCfg redis配置相关
 type RedisCfg struct {
-	Addrs []string `json:"addrs"` //redis连接的地址
+	Cluster        bool                  `json:"cluster"`        //是否使用redis集群
+	Options        *redis.Options        `json:"options"`        //redis单机配置
+	ClusterOptions *redis.ClusterOptions `json:"clusterOptions"` //redis集群配置
 }
 
 // LoggerCfg 日志配置相关

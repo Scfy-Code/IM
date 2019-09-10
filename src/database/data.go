@@ -15,7 +15,7 @@ import (
 var (
 	// MysqlClient mysql客户端
 	MysqlClient = newMysqlClient()
-	// redisClient redis客户端
+	// RedisClient redis客户端
 	RedisClient = newRedisClient()
 )
 
@@ -31,5 +31,8 @@ func newMysqlClient() *sql.DB {
 
 // NewRedisClient 创建一个redis客户端
 func newRedisClient() redis.UniversalClient {
-	return redis.NewClusterClient(&redis.ClusterOptions{Addrs: config.APPCFG.RedisCfg.Addrs})
+	if config.APPCFG.RedisCfg.Cluster {
+		return redis.NewClusterClient(config.APPCFG.RedisCfg.ClusterOptions)
+	}
+	return redis.NewClient(config.APPCFG.RedisCfg.Options)
 }

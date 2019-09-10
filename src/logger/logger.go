@@ -45,11 +45,11 @@ func ErrPrintln(v ...interface{}) {
 	err.Println(v...)
 }
 func init() {
-	infoFile, err0 := os.OpenFile("info"+config.APPCFG.LoggerCfg.InfoLogDir+time.Now().Format("2006-01-02")+".log", os.O_APPEND|os.O_CREATE|os.O_RDWR, 0766)
-	warnFile, err1 := os.OpenFile("warn"+config.APPCFG.LoggerCfg.WarnLogDir+time.Now().Format("2006-01-02")+".log", os.O_APPEND|os.O_CREATE|os.O_RDWR, 0766)
-	errFile, err2 := os.OpenFile("err"+config.APPCFG.LoggerCfg.ErrLogDir+time.Now().Format("2006-01-02")+".log", os.O_APPEND|os.O_CREATE|os.O_RDWR, 0766)
+	infoFile, err0 := os.OpenFile(config.APPCFG.LoggerCfg.InfoLogDir+"info-"+time.Now().Format("2006-01-02")+".log", os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
+	warnFile, err1 := os.OpenFile(config.APPCFG.LoggerCfg.WarnLogDir+"warn-"+time.Now().Format("2006-01-02")+".log", os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
+	errFile, err2 := os.OpenFile(config.APPCFG.LoggerCfg.ErrLogDir+"err-"+time.Now().Format("2006-01-02")+".log", os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
 	if err0 != nil || err1 != nil || err2 != nil {
-		log.Println("读取日志文件失败")
+		log.Printf("读取日志文件失败!错误信息：%s;%s;%s", err0.Error(), err1.Error(), err2.Error())
 		os.Exit(2)
 	}
 	info = log.New(io.MultiWriter(os.Stdout, infoFile), "info-", log.Ldate|log.Ltime|log.Llongfile)

@@ -21,17 +21,23 @@ type indexView struct {
 }
 
 func (iv indexView) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	session := scope.NewSession(r)
+	session := scope.NewSession(w, r)
 	if !session.IsExist("USER") {
 		http.Redirect(w, r, iv.redirectURL, http.StatusFound)
 		return
 	}
 	user := session.GetData("USER")
-	friends := indexService.SelectFriends(fmt.Sprintf("%d", user["id"]))
-	groups := indexService.SelectGroups(fmt.Sprintf("%d", user["id"]))
-	user["friends"] = friends
-	user["groups"] = groups
-	iv.indexTemplate.Execute(w, user)
+	if user == nil {
+		http.Redirect(w, r, iv.redirectURL, http.StatusFound)
+		return
+	}
+	friends := indexService.SelectFriends(fmt.Sprintf("%s", user["id"]))
+	groups := indexService.SelectGroups(fmt.Sprintf("%s", user["id"]))
+	indexData := make(map[string]interface{})
+	indexData["user"] = user
+	indexData["friends"] = friends
+	indexData["groups"] = groups
+	iv.indexTemplate.Execute(w, indexData)
 }
 
 // NewIndexController 创建一个首页路由器

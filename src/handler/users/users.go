@@ -21,17 +21,17 @@ type signinView struct {
 // NewSigninView 创建一个登录页面处理器
 func NewSigninView() http.Handler {
 	return &signinView{
-		"index.scfy",
+		"/index.scfy",
 		entry.Views["sign_in.scfy"],
 	}
 }
 func (sv signinView) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	session := scope.NewSession(r)
+	session := scope.NewSession(w, r)
 	if !session.IsExist("USER") {
 		sv.signinTemplate.Execute(w, nil)
 		return
 	}
-	http.Redirect(w, r, sv.redirectURL, http.StatusFound)
+	http.Redirect(w, r, sv.redirectURL, http.StatusTemporaryRedirect)
 }
 
 // signinAction 登录请求的结构体
@@ -50,9 +50,9 @@ func NewSigninAction() http.Handler {
 
 // 处理登录请求：登录成功重定向至指定页面/登录失败返回登录页面
 func (sa signinAction) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	session := scope.NewSession(r)
+	session := scope.NewSession(w, r)
 	if session.IsExist("USER") {
-		http.Redirect(w, r, sa.redirectURL, http.StatusFound)
+		http.Redirect(w, r, sa.redirectURL, http.StatusTemporaryRedirect)
 		return
 	}
 	if err := r.ParseForm(); err != nil {
@@ -64,13 +64,12 @@ func (sa signinAction) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		sa.signinTemplate.Execute(w, "非法邮箱")
 		return
 	}
-
 	if check, err := regexp.MatchString("^([a-z|A-Z])+([a-z|A-Z|0-9]){4,58}@((gmail)|(qq)|(163)|(126)){1}((.com)|(.cn)|(.net)){1}$", email); err != nil || !check {
 		sa.signinTemplate.Execute(w, "非法邮箱地址")
 		return
 	}
 	password := r.FormValue("password")
-	if check, err := regexp.MatchString("pattern", password); err != nil || !check {
+	if check, err := regexp.MatchString("^[a-z|A-Z]+[a-z|A-Z|0-9]{7,27}", password); err != nil || !check {
 		sa.signinTemplate.Execute(w, "邮箱或密码错误！")
 		return
 	}
@@ -79,7 +78,7 @@ func (sa signinAction) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		sa.signinTemplate.Execute(w, "登陆失败！邮箱或密码错误！")
 		return
 	}
-	http.Redirect(w, r, sa.redirectURL, http.StatusFound)
+	http.Redirect(w, r, sa.redirectURL, http.StatusTemporaryRedirect)
 }
 
 // SignUpView 注册页面结构体

@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/Scfy-Code/scfy-im/logger"
+
 	"github.com/Scfy-Code/scfy-im/database"
 
 	"github.com/go-redis/redis"
@@ -27,9 +29,6 @@ type Application interface {
 	RemData(value ...interface{}) bool //删除application域中value元素
 	IsExist(value interface{}) bool    //验证application域中是否存在value元素
 }
-
-var MsgChannel map[string]map[string]interface{}
-
 type application struct {
 	key         string                //域名称
 	redisClient redis.UniversalClient //操作域的客户端对象
@@ -68,28 +67,39 @@ type session struct {
 }
 
 // NewSession 通过请求获取session域
-func NewSession(r *http.Request) Session {
+func NewSession(w http.ResponseWriter, r *http.Request) Session {
 	var sessionID string
 	cookie, err := r.Cookie("SESSIONID")
-	if err != nil {
+	if err != nil || cookie == nil {
 		sessionID = fmt.Sprintf("%d", time.Now().Unix())
-		cookie0 := &http.Cookie{Name: "SESSIONID", Value: sessionID}
+		cookie0 := &http.Cookie{Name: "SESSIONID", Value: sessionID, Path: "/"}
 		r.AddCookie(cookie0)
+		if w != nil {
+			http.SetCookie(w, cookie0)
+		}
+	} else {
+		sessionID = cookie.Value
 	}
-	sessionID = cookie.Value
+	if w != nil {
+		http.SetCookie(w, cookie)
+	}
 	return &session{sessionID, database.RedisClient}
 }
 func (s session) GetData(field string) map[string]interface{} {
 	result, err := s.redisClient.HGet(s.SessionID(), field).Result()
 	if err != nil {
+		logger.WarnPrintf("反序列化session数据报错！错误信息：%s", err.Error())
 		return nil
 	}
 	data, err0 := json.Marshal(result)
 	if err0 != nil {
+		logger.WarnPrintf("反序列化session数据报错！错误信息：%s", err0.Error())
 		return nil
 	}
 	r := make(map[string]interface{})
-	if json.Unmarshal(data, &r) != nil {
+	err1 := json.Unmarshal(data, &r)
+	if err1 != nil {
+		logger.WarnPrintf("反序列化session数据报错！错误信息：%s", err1.Error())
 		return nil
 	}
 	return r
@@ -97,10 +107,18 @@ func (s session) GetData(field string) map[string]interface{} {
 func (s session) SetData(field string, value interface{}) bool {
 	data, err := json.Marshal(value)
 	if err != nil {
+		logger.WarnPrintf("序列化session数据出错！错误信息：%s", err.Error())
 		return false
 	}
-	result, err0 := s.redisClient.HSet(s.SessionID(), field, data).Result()
+	var str string
+	err0 := json.Unmarshal(data, &str)
 	if err0 != nil {
+		logger.WarnPrintf("序列化session数据出错！错误信息：%s", err0.Error())
+		return false
+	}
+	result, err1 := s.redisClient.HSet(s.SessionID(), field, str).Result()
+	logger.WarnPrintf("存储session数据出错！错误信息：%s", err1.Error())
+	if err1 != nil {
 		return false
 	}
 	return result
@@ -108,6 +126,7 @@ func (s session) SetData(field string, value interface{}) bool {
 func (s session) DelData(fields ...string) bool {
 	_, err := s.redisClient.HDel(s.SessionID(), fields...).Result()
 	if err != nil {
+		logger.WarnPrintf("删除session数据出错！错误信息：%s", err.Error())
 		return false
 	}
 	return true
@@ -115,6 +134,7 @@ func (s session) DelData(fields ...string) bool {
 func (s session) IsExist(field string) bool {
 	result, err := s.redisClient.HExists(s.SessionID(), field).Result()
 	if err != nil {
+		logger.WarnPrintf("验证session数据出错！错误信息：%s", err.Error())
 		return false
 	}
 	return result
@@ -125,6 +145,7 @@ func (s session) SessionID() string {
 func (s session) RmSession() bool {
 	_, err := s.redisClient.Del(s.SessionID()).Result()
 	if err != nil {
+		logger.WarnPrintf("移除session出错！错误信息：%s", err.Error())
 		return false
 	}
 	return true
