@@ -5,11 +5,8 @@ import (
 	"net/http"
 	"regexp"
 
-	"github.com/Scfy-Code/scfy-im/scope"
-
-	"github.com/Scfy-Code/scfy-im/service/users"
-
-	"github.com/Scfy-Code/scfy-im/entry"
+	"github.com/Scfy-Code/scfy-im/app"
+	"github.com/Scfy-Code/scfy-im/server/users"
 )
 
 // signinView 登录页面结构体
@@ -22,11 +19,11 @@ type signinView struct {
 func NewSigninView() http.Handler {
 	return &signinView{
 		"/index.scfy",
-		entry.Views["sign_in.scfy"],
+		app.TemplateMap["sign_in.scfy"],
 	}
 }
 func (sv signinView) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	session := scope.NewSession(w, r)
+	session := app.NewSession(w, r)
 	if !session.IsExist("USER") {
 		sv.signinTemplate.Execute(w, nil)
 		return
@@ -44,13 +41,13 @@ type signinAction struct {
 func NewSigninAction() http.Handler {
 	return &signinAction{
 		"/index.scfy",
-		entry.Views["sign_in.scfy"],
+		app.TemplateMap["sign_in.scfy"],
 	}
 }
 
 // 处理登录请求：登录成功重定向至指定页面/登录失败返回登录页面
 func (sa signinAction) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	session := scope.NewSession(w, r)
+	session := app.NewSession(w, r)
 	if session.IsExist("USER") {
 		http.Redirect(w, r, sa.redirectURL, http.StatusTemporaryRedirect)
 		return
@@ -74,6 +71,10 @@ func (sa signinAction) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	user := users.UserService.Login(email, password)
+	if user == nil {
+		sa.signinTemplate.Execute(w, "邮箱或密码错误！")
+		return
+	}
 	if !session.SetData("USER", user) {
 		sa.signinTemplate.Execute(w, "登陆失败！邮箱或密码错误！")
 		return
@@ -91,7 +92,7 @@ type signupView struct {
 func NewSignupView() http.Handler {
 	return &signupView{
 		"/index.scfy",
-		entry.Views["sign_up.scfy"],
+		app.TemplateMap["sign_up.scfy"],
 	}
 }
 func (sv signupView) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -107,7 +108,7 @@ type signupAction struct {
 func NewSignupAction() http.Handler {
 	return &signupAction{
 		"/index.scfy",
-		entry.Views["sign_up.scfy"],
+		app.TemplateMap["sign_up.scfy"],
 	}
 }
 func (sa signupAction) ServeHTTP(w http.ResponseWriter, r *http.Request) {

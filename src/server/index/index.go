@@ -3,9 +3,9 @@ package index
 import (
 	"database/sql"
 
-	"github.com/Scfy-Code/scfy-im/util"
+	"github.com/Scfy-Code/scfy-im/kit"
 
-	"github.com/Scfy-Code/scfy-im/database"
+	"github.com/Scfy-Code/scfy-im/app"
 )
 
 type IndexService struct {
@@ -13,19 +13,19 @@ type IndexService struct {
 }
 
 func NewIndexService() *IndexService {
-	return &IndexService{database.MysqlClient}
+	return &IndexService{app.MysqlClient}
 }
 func (is IndexService) SelectFriends(id string) []map[string]interface{} {
 	rows, err := is.db.Query("query", id)
 	if err != nil {
 		return nil
 	}
-	return util.RowsToMap(rows)
+	return kit.RowsToMap(rows)
 }
 func (is IndexService) SelectGroups(id string) []map[string]interface{} {
 	rows, err := is.db.Query("query", id)
 	if err != nil {
 		return nil
 	}
-	return util.RowsToMap(rows)
+	return kit.RowsToMap(rows)
 }

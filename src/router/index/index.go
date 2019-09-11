@@ -5,11 +5,8 @@ import (
 	"html/template"
 	"net/http"
 
-	"github.com/Scfy-Code/scfy-im/service/index"
-
-	"github.com/Scfy-Code/scfy-im/scope"
-
-	"github.com/Scfy-Code/scfy-im/entry"
+	"github.com/Scfy-Code/scfy-im/app"
+	"github.com/Scfy-Code/scfy-im/server/index"
 )
 
 var indexService = index.NewIndexService()
@@ -21,16 +18,12 @@ type indexView struct {
 }
 
 func (iv indexView) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	session := scope.NewSession(w, r)
+	session := app.NewSession(w, r)
 	if !session.IsExist("USER") {
 		http.Redirect(w, r, iv.redirectURL, http.StatusFound)
 		return
 	}
 	user := session.GetData("USER")
-	if user == nil {
-		http.Redirect(w, r, iv.redirectURL, http.StatusFound)
-		return
-	}
 	friends := indexService.SelectFriends(fmt.Sprintf("%s", user["id"]))
 	groups := indexService.SelectGroups(fmt.Sprintf("%s", user["id"]))
 	indexData := make(map[string]interface{})
@@ -42,5 +35,5 @@ func (iv indexView) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 // NewIndexController 创建一个首页路由器
 func NewIndexController() http.Handler {
-	return &indexView{"/user/sign_in.scfy", entry.Views["index.scfy"]}
+	return &indexView{"/user/sign_in.scfy", app.TemplateMap["index.scfy"]}
 }

@@ -139,7 +139,7 @@
                 <div class="row border border-1" style="height:20%;">
                     <div class="col col-12">
                         <div class="row bg-light" style="height: 30%;">
-                            <ul class="nav nav-tab">
+                            <ul class="nav nav-tabs">
                                 <li class="nav-item">
                                     <a class="nav-link active" data-toggle="tab" href="#text">会话</a>
                                 </li>
@@ -155,7 +155,9 @@
                             <div id="text" class="tab-pane active h-100 mh-100 w-100 mw-100">
                                 <div class="row h-100 mh-100">
                                     <div class="col col-11">
-                                        <input id="message" class="h-100 w-100" type="text" placeholder="请输入发送的内容">
+                                        <form class="h-100 mh-100" action="/msg/textMessage.action" method="post">
+                                            <input id="message" class="h-100 w-100" type="text" placeholder="请输入发送的内容">
+                                        </form>
                                     </div>
                                     <div class="col col-1">
                                         <button id="send"
@@ -169,8 +171,13 @@
                             <div id="image" class=" tab-pane fade h-100 mh-100 w-100 mw-100">
                                 <div class="row h-100 mh-100">
                                     <div class="col col-9  custom-file">
-                                        <input type="file" class="custom-file-input" id="customFile">
-                                        <label class="custom-file-label" for="customFile">选择图片</label></div>
+                                        <form action="/" method="post">
+                                            <div class="form-froup">
+                                                <input type="file" class="custom-file-input" id="customFile">
+                                                <label class="custom-file-label" for="customFile">选择图片</label>
+                                            </div>
+                                        </form>
+                                    </div>
                                     <div class="col col-3"></div>
                                 </div>
 

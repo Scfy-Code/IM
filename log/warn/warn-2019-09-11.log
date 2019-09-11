@@ -1,0 +1,5 @@
+warn-2019/09/11 15:05:40 E:/SCFY/文档/VsCode/scfy-im/src/handler/sync/sync.go:46: session信息实例化出错！错误信息：json: cannot unmarshal string into Go value of type map[string]interface {}
+warn-2019/09/11 17:55:35 E:/SCFY/文档/VsCode/scfy-im/src/app/session.go:61: session刷新生命周期出错！错误信息：json: cannot unmarshal number into Go value of type string
+warn-2019/09/11 17:55:35 E:/SCFY/文档/VsCode/scfy-im/src/app/session.go:61: session刷新生命周期出错！错误信息：json: cannot unmarshal number into Go value of type string
+warn-2019/09/11 17:56:38 E:/SCFY/文档/VsCode/scfy-im/src/app/session.go:61: session刷新生命周期出错！错误信息：json: cannot unmarshal number into Go value of type string
+warn-2019/09/11 17:56:38 E:/SCFY/文档/VsCode/scfy-im/src/app/session.go:61: session刷新生命周期出错！错误信息：json: cannot unmarshal number into Go value of type string

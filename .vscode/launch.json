@@ -8,8 +8,8 @@
             "name": "Launch",
             "type": "go",
             "request": "launch",
-            "mode": "auto",
-            "program": "${workspaceRoot}/bin/scfy-im",
+            "mode": "exec",
+            "program": "${workspaceFolder}/bin/scfy-im.exe",
             "env": {},
             "args": []
         }

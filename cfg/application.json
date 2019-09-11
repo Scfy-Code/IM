@@ -1,33 +1,38 @@
 {
     "staticDir": "../lib/statics/",
-    "viewDir": "../lib/views/",
-    "dataBase": {
-        "driverName": "mysql",
-        "dataSourceName": "root:Scfy774250.@tcp(127.0.0.1:3306)/scfy_im?charset=UTF8"
-    },
-    "redis": {
-        "cluster": true,
-        "options": {
-            "Addr": "127.0.0.1:6379"
+    "templateDir": "../lib/views/",
+    "uploadDir": "",
+    "dataSource": {
+        "mysql": {
+            "driverName": "mysql",
+            "userName": "root",
+            "password": "Scfy774250.",
+            "host": "127.0.0.1:3306",
+            "dataBase": "scfy_im",
+            "charset": "UTF8"
         },
-        "clusterOptions": {
-            "Addrs": [
-                "127.0.0.1:638",
-                "127.0.0.1:638",
-                "127.0.0.1:638",
-                "127.0.0.1:638",
-                "127.0.0.1:638",
-                "127.0.0.1:638",
-                "127.0.0.1:638",
-                "127.0.0.1:638",
-                "127.0.0.1:638"
-            ],
-            "Password": "Scfy774250."
+        "redis": {
+            "cluster": false,
+            "standOptions": {
+                "addr": "127.0.0.1:6379"
+            },
+            "clusterOptions": {
+                "addrs": [
+                    "127.0.0.1:6380",
+                    "127.0.0.1:6381",
+                    "127.0.0.1:6382",
+                    "127.0.0.1:6383",
+                    "127.0.0.1:6384",
+                    "127.0.0.1:6385",
+                    "127.0.0.1:6386",
+                    "127.0.0.1:6387",
+                    "127.0.0.1:6388"
+                ],
+                "password": "Scfy774250."
+            }
         }
     },
     "logger": {
-        "infoLogDir": "../log/info/",
-        "warnLogDir": "../log/warn/",
-        "errLogDir": "../log/err/"
+        "loggerDir": "../log/"
     }
 }

@@ -4,9 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/Scfy-Code/scfy-im/logger"
-
-	"github.com/Scfy-Code/scfy-im/scope"
+	"github.com/Scfy-Code/scfy-im/app"
 	"golang.org/x/net/websocket"
 )
 
@@ -29,7 +27,7 @@ func CreateConn(conn *websocket.Conn) {
 	//1、获取请求体
 	r := conn.Request()
 	//2、解析请求体
-	session := scope.NewSession(nil, r)
+	session := app.NewSession(nil, r)
 	if !session.IsExist("USER") {
 		conn.Close()
 		return
@@ -45,7 +43,7 @@ func SendMessage() {
 		case msg := <-MessageChannel:
 			data, err0 := json.Marshal(msg)
 			if err0 != nil {
-				logger.WarnPrintf("解析消息出错！错误信息：%s", err0.Error())
+				app.WarnLogger.Printf("解析消息出错！错误信息：%s", err0.Error())
 			}
 			err := websocket.Message.Send(ConnPool[msg.Receiver], data)
 			if err != nil {
