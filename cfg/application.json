@@ -1,7 +1,8 @@
 {
     "staticDir": "../lib/statics/",
     "templateDir": "../lib/templates/",
-    "uploadDir": "",
+    "uploadDir": "../upd/",
+    "loggerDir": "../log/",
     "dataSource": {
         "mysql": {
             "driverName": "mysql",
@@ -31,8 +32,5 @@
                 "password": "Scfy774250."
             }
         }
-    },
-    "logger": {
-        "loggerDir": "../log/"
     }
 }

@@ -16,7 +16,7 @@ func NewIndexService() *IndexService {
 	return &IndexService{app.MysqlClient}
 }
 func (is IndexService) SelectFriends(id string) []map[string]interface{} {
-	rows, err := is.db.Query("query", id)
+	rows, err := is.db.Query("select user1 , user2 from nexus where user1 = ?", id)
 	if err != nil {
 		return nil
 	}

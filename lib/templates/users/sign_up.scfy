@@ -1,21 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100 mh-100 w-100 mw-100">
 
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="/static/plugins/bootstrap/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="/static/bussiness/users/sign_up.css" />
+        <link rel="stylesheet" href="/static/bussiness/users/sign_in.css" />
         <script src="/static/plugins/jquery/jquery-3.4.1.min.js"></script>
         <script src="/static/plugins/popper/popper.min.js"></script>
         <script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
-        <script src="/static/bussiness/users/sign_up.js"></script>
+        <script src="/static/bussiness/users/sign_in.js"></script>
         <title>注册</title>
     </head>
 
-    <body>
-
+    <body class="h-100 mh-100 w-100 mw-100">
+        <div class="row h-100 mh-100 w-25 mw-25  mx-auto">
+            <div class="col-12 h-100 mh-100">
+                <div class="row h-25 mh-25"></div>
+                <div class="row h-50 mh-50">
+                    <div class="col-12 bg-dark">
+                        <div class="row h-25 mh-25">
+                            <div class="col-12 h-100 mh-100">
+                                <div class="row h-25 mh-25">
+                                    <div class="col-12"></div>
+                                </div>
+                                <div class="row h-50 mh-50">
+                                    <div class="col-12">
+                                        <p class="text-primary text-center h1">用户注册</p>
+                                    </div>
+                                </div>
+                                <div class="row h-25 mh-25">
+                                    <div class="col-12">
+                                        <p class="text-danger text-center">用户注册</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row h-75 mh-75">
+                            <div class="col-12 h-100 mh-100">
+                                <form class="h-100 mh-100 w-100 mw-100" action="/user/sign_up.action" method="post">
+                                    <div class="form-group input-group">
+                                        <input type="text" class="form-control form-control-lg" id="email" name="email"
+                                            placeholder="请输入邮箱地址">
+                                        <div class="input-group-append">
+                                            <select class="form-control form-control-lg" name="mail" id="mail">
+                                                <option value="@gmail.com">@gmail.com</option>
+                                                <option value="@163.com">@163.com</option>
+                                                <option value="@qq.com">@qq.com</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control form-control-lg" id="password"
+                                            name="password" placeholder="请输入密码">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control form-control-lg" id="password"
+                                            name="password" placeholder="请确认密码">
+                                    </div>
+                                    <div class="form-group">
+                                        <a href="/user/sign_in.scfy" class="text-primary float-left">登录</a>
+                                        <a href="#" class="text-primary float-right">找回密码</a>
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-success w-100 m-100 btn-lg" type="submit">登录</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row h-25 mh-25"></div>
+            </div>
+        </div>
     </body>
 
 </html>

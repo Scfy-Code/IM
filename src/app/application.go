@@ -16,14 +16,15 @@ import (
 
 // StaticDir 静态资源目录
 var StaticDir string
+var UploadDir string
 
 //应用配置
 type application struct {
 	StaticDir   string     `json:"staticDir"`   //静态资源目录
 	TemplateDir string     `json:"templateDir"` //模板目录
-	UploadDir   string     `json:"uploadDir"`   //上传文件地址
+	UploadDir   string     `json:"uploadDir"`   //上传文件目录
+	LoggerDir   string     `json:"loggerDir"`   //日志目录
 	DataSource  dataSource `json:"dataSource"`  //数据源配置
-	Logger      logger     `json:"logger"`      //日志配置
 }
 
 //数据源配置
@@ -66,9 +67,9 @@ func (a application) newRedisClient() cache.UniversalClient {
 }
 
 func (a application) newLoggerClient() (*log.Logger, *log.Logger, *log.Logger) {
-	infoLogFile, err0 := os.OpenFile(a.Logger.LoggerDir+"info/info-"+time.Now().Format("2006-01-02")+".log", os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
-	warnLogFile, err1 := os.OpenFile(a.Logger.LoggerDir+"warn/warn-"+time.Now().Format("2006-01-02")+".log", os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
-	errorLogFile, err2 := os.OpenFile(a.Logger.LoggerDir+"error/error-"+time.Now().Format("2006-01-02")+".log", os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
+	infoLogFile, err0 := os.OpenFile(a.LoggerDir+"info/info-"+time.Now().Format("2006-01-02")+".log", os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
+	warnLogFile, err1 := os.OpenFile(a.LoggerDir+"warn/warn-"+time.Now().Format("2006-01-02")+".log", os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
+	errorLogFile, err2 := os.OpenFile(a.LoggerDir+"error/error-"+time.Now().Format("2006-01-02")+".log", os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
 	if err0 != nil || err1 != nil || err2 != nil {
 		log.Printf("创建日志文件失败！错误信息：%s;%s;%s;", err0.Error(), err1.Error(), err2.Error())
 	}
@@ -82,4 +83,5 @@ func init() {
 	RedisClient = appc.newRedisClient()
 	newTemplateMap(appc.TemplateDir)
 	StaticDir = appc.StaticDir
+	UploadDir = appc.UploadDir
 }

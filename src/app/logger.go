@@ -10,8 +10,3 @@ var (
 	// ErrorLogger 错误日志
 	ErrorLogger *log.Logger
 )
-
-//日志配置
-type logger struct {
-	LoggerDir string `json:"loggerDir"` //日志目录
-}

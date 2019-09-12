@@ -20,16 +20,7 @@
                 <img class="img-fluid h-100 w-100 mh-100 mw-100" src="/static/images/logo.png" alt="网站logo">
             </div>
             <div class="col col-10 h-100">
-                <div class="row h-100 mh-100">
-                    <div class="col col-5"></div>
-                    <div class="col col-5 input-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit">Go</button>
-                        </div>
-                    </div>
-                    <div class="col col-2"></div>
-                </div>
+
             </div>
         </div>
         <div class="row w-100 mw-100" style="height: 90%;">
@@ -113,7 +104,7 @@
             </div>
             <div class="col col-9">
                 <div class="row border border-bottom-1" style="height:10%;">
-                    <div class="col col-12" id="talker" talkerID="">
+                    <div class="col col-12" id="reciver" reciver="">
                         <div class="row h-100 mh-100">
                             <div class="col col-1 h-100 mh-100">
                                 <img class="img-fluid" id="talkerImage" style="width:60%">
@@ -155,14 +146,12 @@
                             <div id="text" class="tab-pane active h-100 mh-100 w-100 mw-100">
                                 <div class="row h-100 mh-100">
                                     <div class="col col-11">
-                                        <form class="h-100 mh-100" action="/msg/textMessage.action" method="post">
-                                            <input id="message" class="h-100 w-100" type="text" placeholder="请输入发送的内容">
-                                        </form>
+                                        <input id="textMsg" class="h-100 w-100" type="text" placeholder="请输入发送的内容">
                                     </div>
                                     <div class="col col-1">
                                         <button id="send"
                                             class=" btn btn-primary border border-primary h-100 mh-100 w-100 mw-100"
-                                            onclick="sendMesage()" disabled="disabled">
+                                            onclick="sendTextMesage()" disabled="disabled">
                                             <h3 class="text-center">发送</h3>
                                         </button>
                                     </div>
@@ -171,10 +160,13 @@
                             <div id="image" class=" tab-pane fade h-100 mh-100 w-100 mw-100">
                                 <div class="row h-100 mh-100">
                                     <div class="col col-9  custom-file">
-                                        <form action="/" method="post">
+                                        <form action="/msg/imageMessage.action" method="post">
+                                            <div class="form-group hidden">
+                                                <input type="text" class="form-control" name="receiver">
+                                            </div>
                                             <div class="form-froup">
-                                                <input type="file" class="custom-file-input" id="customFile">
-                                                <label class="custom-file-label" for="customFile">选择图片</label>
+                                                <input type="file" class="custom-file-input" id="image" name="image">
+                                                <label class="custom-file-label" for="image">选择图片</label>
                                             </div>
                                         </form>
                                     </div>
@@ -188,7 +180,6 @@
                                         <input type="file" class="custom-file-input" id="customFile">
                                         <label class="custom-file-label" for="customFile">选择文件</label></div>
                                 </div>
-
                             </div>
                         </div>
                     </div>

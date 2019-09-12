@@ -5,11 +5,12 @@ import (
 	"fmt"
 
 	"github.com/Scfy-Code/scfy-im/app"
+	"github.com/Scfy-Code/scfy-im/entity"
 	"golang.org/x/net/websocket"
 )
 
 // MessageChannel 消息通道
-var MessageChannel = make(chan *Message, 1000)
+var MessageChannel = make(chan *entity.Msg, 1000)
 
 // ConnPool 连接池
 var ConnPool = make(map[string]*websocket.Conn)
@@ -19,7 +20,7 @@ type Message struct {
 	Sender   string
 	Receiver string
 	Content  string
-	MsgType  int8
+	MsgType  string
 }
 
 // CreateConn 与客户端建立长连接并将连接保存在连接池中
@@ -45,10 +46,10 @@ func SendMessage() {
 			if err0 != nil {
 				app.WarnLogger.Printf("解析消息出错！错误信息：%s", err0.Error())
 			}
-			err := websocket.Message.Send(ConnPool[msg.Receiver], data)
+			err := websocket.Message.Send(ConnPool[""], data)
 			if err != nil {
-				ConnPool[msg.Receiver].Close()
-				delete(ConnPool, msg.Receiver)
+				ConnPool["msg.Receiver"].Close()
+				delete(ConnPool, "msg.Receiver")
 			}
 		default:
 			return

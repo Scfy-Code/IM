@@ -26,8 +26,8 @@ func init() {
 	http.Handle("/user/sign_in.action", users.NewSigninAction())
 	http.Handle("/user/sign_up.scfy", users.NewSignupView())
 	http.Handle("/user/sign_up.action", users.NewSignupAction())
-	http.Handle("/user/textMessage.action", chat.NewSendMessage())
-	http.Handle("/user/imageMessage.action", chat.NewSendMessage())
-	http.Handle("/user/fileMessage.action", chat.NewSendMessage())
+	http.Handle("/msg/textMessage.action", chat.NewTextMessage())
+	http.Handle("/msg/imageMessage.action", chat.NewImageMessage())
+	http.Handle("/msg/fileMessage.action", chat.NewFileMessage())
 	http.Handle("/talk.action", websocket.Handler(sync.CreateConn))
 }
