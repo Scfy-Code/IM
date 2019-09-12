@@ -1,6 +1,6 @@
 {
     "staticDir": "../lib/statics/",
-    "templateDir": "../lib/views/",
+    "templateDir": "../lib/templates/",
     "uploadDir": "",
     "dataSource": {
         "mysql": {
