@@ -1,4 +1,4 @@
-module github.com/Scfy-Code/scfy-im
+module github.com/Scfy-Code/IM
 
 go 1.13
 
