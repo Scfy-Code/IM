@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {{template "head"}}
+    <link type="text/css" rel="stylesheet" href="/static/bussiness/index/index.css">
+    <title></title>
+</head>
+
+<body>
+    <div class="top row bg-primary">
+        <div class="col-2" id="logo">
+            <img class="img-fluid" src="/static/images/logo.png" alt="">
+        </div>
+        <div class="col-8" id="search"></div>
+        <div class="col-2" id="account">
+            <img class="img-fluid" src="/static/images/avatar.png" alt="">
+        </div>
+    </div>
+    <div class="bottom row">
+        <div class="col-3 border border-primary">
+            <div class="row h-100">
+                <div class="col-2 border border-1">
+                    <ul class="nav nav-tabs flex-column nav-justified" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#conversations">
+                                会话
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#friends">
+                                好友
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#groups">
+                                群组
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-10 tab-content">
+                    <div id="conversations" class="row tab-pane h-100 active list-group">
+                        <a href="javascript:void(0)" onclick="" class="list-group-item">链表</a>
+                        <a href="#array" class="list-group-item">数组</a>
+                        <a href="#sclise" class="list-group-item">切片</a>
+                    </div>
+                    <div id="friends" class="row tab-pane h-100 fade  list-group"></div>
+                    <div id="groups" class="row tab-pane h-100 fade  list-group"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-9">
+            <div class="row talker"></div>
+            <div class="row content">
+                <div class="col-12" id="list"></div>
+                <div class="col-12" id="list"></div>
+                <div class="col-12" id="list"></div>
+            </div>
+            <div class="row operate"></div>
+        </div>
+    </div>
+
+    {{template "foot"}}
+    <script type="text/javascript" src="/static/bussiness/index/index.js"></script>
+</body>
+
+</html>

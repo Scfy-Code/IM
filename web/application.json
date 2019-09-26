@@ -1,0 +1,12 @@
+{
+    "templateDir": "../web/template",
+    "staticDir": "../web/static",
+    "uploadDir": "",
+    "driverName": "mysql",
+    "dataSourceName": "root:Scfy774250.@tcp(127.0.0.1:3306)/us?charset=UTF8",
+    "redisOptions": {
+        "addrs": [
+            "127.0.0.1:6379"
+        ]
+    }
+}

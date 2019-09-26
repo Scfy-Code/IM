@@ -1,0 +1,21 @@
+html,body{
+    height: 100%;
+}
+.top{
+    height: 10%;
+}
+#logo,#search,#account{
+    height: 100%;
+}
+.bottom{
+    height:90%;
+}
+.talker{
+height: 10%;
+}
+.content{
+height: 60%;
+}
+.operate{
+height: 30%;
+}
