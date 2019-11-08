@@ -21,123 +21,97 @@
                 </div>
             </div>
         </div>
-        <div class="col-4 h-100"> </div>
+        <div class="col-4 h-100"></div>
     </div>
     <div class="bottom row">
         <div class="col-3 h-100">
             <div class="row h-100">
-                <div class="col-12 tab-content h-100 border border-left-0 border-primary">
-                    <div class="row" style="height:10%">
-                        <div class="col-12">
-                            <div class="row h-50">
-                                <div class="col-12 h-100">
-                                    <ul class="nav nav-tabs nav-justified" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link oi oi-chat active" data-toggle="tab"
-                                                href="#conversations">&nbsp;&nbsp;&nbsp;&nbsp;聊天
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link oi oi-list" data-toggle="tab"
-                                                href="#friends">&nbsp;&nbsp;&nbsp;&nbsp;好友
-
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link oi oi-people" data-toggle="tab" href="#groups">
-                                                &nbsp;&nbsp;&nbsp;&nbsp;群组
-                                            </a>
-                                        </li>
-                                    </ul>
+                <div class="col-12 h-100 border">
+                    <div class="row" style="height:6%">
+                        <div class="col-12 h-100">
+                            <nav class="nav nav-tabs nav-fill" style="font-size: 2rem;">
+                                <a class="nav-item nav-link oi oi-person active" data-toggle="tab" data-placement="top"
+                                    title="好友列表" href="#friends"></a>
+                                <a class="nav-item nav-link oi oi-people" data-toggle="tab" data-placement="top"
+                                    title="群组列表" href="#groups"></a>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="tab-content" style="height:94%;" class="row">
+                        <div id="friends" class="col-12 h-100 mh-100 tab-pane overflow-auto active">
+                            {{range .}}
+                            <div class="row border border-primry border-top-0 border-left-0 border-right-0 user">
+                                <div class="col-2 h-100">
+                                    <img class="user_avatar" src="{{.userAvatar}}" alt="">
                                 </div>
-                            </div>
-                            <div class="row h-50">
-                                <div class="col-12 h-100">
-                                    <div class="input-group">
-                                        <input class="form-control" type="text">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-success">
-                                                ->
-                                            </button>
+                                <div class="col-8 h-100 user_info">
+                                    <div class="row h-50">
+                                        <div class="col-3 user_name">{{.userNickName}}</div>
+                                        <div class="col-9 user_sign">
+                                            {{.userSign}}</div>
+                                    </div>
+                                    <div class="row h-50 use_msg">
+                                        <div class="col-1 msg_type oi oi-chat text-success"></div>
+                                        <div class="col-11 msg_info"></div>
+                                    </div>
+                                </div>
+                                <div class="col-2 h-100 user_delete">
+                                    <div class="row" style="height: 33.33%;">
+                                        <div class="col-4 h-100"></div>
+                                        <div class="col-4 h-100"></div>
+                                        <div class="col-4 h-100">
+                                            <a class="oi oi-circle-x text-danger" href="javascript:void(0);"
+                                                onclick="del_user(this)"></a>
                                         </div>
                                     </div>
-
+                                    <div class="row" style="height: 33.33%;">
+                                        <div class="col-12 h-100">
+                                            <span class="msg_num badge badge-pill badge-warning">99+</span>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="height: 33.33%;">
+                                        <div class="col-12"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{end}}
+                        </div>
+                        <div id="groups" class="col-12 h-100 mh-100 tab-pane overflow-auto">
+                            <div class="row border" style="height: 5%;">
+                                <div class="col-2 h-100">
+                                    <img src="/static/images/avatar.png" style="height: 3rem;" alt="">
+                                </div>
+                                <div class="col-10 h-100">
+                                    <div class="row h-50">王二牛</div>
+                                    <div class="row h-50">识者！兵之所幸。兵者！胜之所依。</div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div id="conversations" style="height:90%" class="row tab-pane active list-group overflow-auto">
-                        <a href="javascript:void(0)" onclick="" class="list-group-item list-group-item-action">李二狗
-                            正在聊天</a>
-                        <a href="javascript:void(0)" class="list-group-item list-group-item-primary">张二牛登录状态</a>
-                        <a href="javascript:void(0)" class="list-group-item list-group-item-warning">
-                            王二驴有消息
-                            <span class="badge badge-danger badge-pill float-right">99+</span>
-                        </a>
-                        <a href="javascript:void(0)" onclick="" class="list-group-item list-group-item-dark">李二狗不在线</a>
-                        <a href="javascript:void(0)" class="list-group-item">张二牛</a>
-                        <a href="javascript:void(0)" class="list-group-item">王二驴</a>
-                        <a href="javascript:void(0)" onclick="" class="list-group-item">李二狗</a>
-                        <a href="javascript:void(0)" class="list-group-item">张二牛</a>
-                        <a href="javascript:void(0)" class="list-group-item">王二驴</a>
-                        <a href="javascript:void(0)" onclick="" class="list-group-item">李二狗</a>
-                        <a href="javascript:void(0)" class="list-group-item">张二牛</a>
-                        <a href="javascript:void(0)" class="list-group-item">王二驴</a>
-                        <a href="javascript:void(0)" onclick="" class="list-group-item">李二狗</a>
-                        <a href="javascript:void(0)" class="list-group-item">张二牛</a>
-                        <a href="javascript:void(0)" class="list-group-item">王二驴</a>
-                        <a href="javascript:void(0)" onclick="" class="list-group-item">李二狗</a>
-                        <a href="javascript:void(0)" class="list-group-item">张二牛</a>
-                        <a href="javascript:void(0)" class="list-group-item">王二驴</a>
-                        <a href="javascript:void(0)" onclick="" class="list-group-item">李二狗</a>
-                        <a href="javascript:void(0)" class="list-group-item">张二牛</a>
-                        <a href="javascript:void(0)" class="list-group-item">王二驴</a>
-                        <a href="javascript:void(0)" onclick="" class="list-group-item">李二狗</a>
-                        <a href="javascript:void(0)" class="list-group-item">张二牛</a>
-                        <a href="javascript:void(0)" class="list-group-item">王二驴</a>
-                    </div>
-                    <div id="friends" class="row tab-pane h-75 fade  list-group">
-                        <a href="javascript:void(0)" onclick="" class="list-group-item">刘三猪</a>
-                        <a href="javascript:void(0)" class="list-group-item">赵三鸡</a>
-                        <a href="javascript:void(0)" class="list-group-item">孙三鸭</a>
-                    </div>
-                    <div id="groups" class="row tab-pane h-75 fade  list-group">
-                        <a href="javascript:void(0)" onclick="" class="list-group-item">杨四鹅</a>
-                        <a href="javascript:void(0)" class="list-group-item">魏四鱼</a>
-                        <a href="javascript:void(0)" class="list-group-item">郭四猫</a>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-9 h-100">
-            <div class="row talker border border-primary border-left-0"></div>
-            <div class="row content">
-
-            </div>
+            <div class="row content border"></div>
             <div class="row operate">
                 <div class="col-12 h-100">
-                    <div class="row h-25 bg-light border border-primary border-left-0">
-                        <ul class="nav nav-tabs">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#text">文本</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#image">图片</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#file">附件</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#emoji">表情</a>
-                            </li>
-                        </ul>
+                    <div class="row h-25 bg-light border">
+                        <nav class="nav nav-tabs" style="font-size: 1.6rem;">
+                            <a class="nav-item nav-link oi oi-chat active" data-toggle="tab" href="#text"
+                                title="文本消息"></a>
+                            <a class="nav-item nav-link oi oi-image" data-toggle="tab" href="#image" title="图片消息"></a>
+                            <a class="nav-item nav-link oi oi-paperclip" data-toggle="tab" href="#file"
+                                title="附件消息"></a>
+                            <a class="nav-item nav-link oi oi-heart" data-toggle="tab" href="#emoji" title="表情消息"></a>
+                        </nav>
                     </div>
                     <div class="row h-75 tab-content">
                         <div class="col-12 tab-pane active h-100" id="text">
                             <div class="input-group h-100 w-100">
-                                <textarea class="h-100 w-75" name="" id="" style="resize: none;"></textarea>
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary"></button>
+                                <textarea class="h-100" name="" id="" style="resize: none;width:90%;"></textarea>
+                                <div class="input-group-append" style="width: 10%;">
+                                    <button class="btn btn-primary w-100" accesskey="a"
+                                        style=" font-size: 2.4rem;">发送</button>
                                 </div>
                             </div>
                         </div>
@@ -149,7 +123,6 @@
             </div>
         </div>
     </div>
-
     {{template "foot"}}
     <script type="text/javascript" src="/static/bussiness/index/index.js"></script>
 </body>

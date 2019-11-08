@@ -7,12 +7,32 @@ html,body{
 .bottom{
     height:90%;
 }
-.talker{
-height: 10%;
+.user{
+    height: 3.8rem;
+    padding-top: 0.3rem;
+}
+.user_avatar{
+    height: 3rem;
+    cursor: pointer;
+}
+.user_info{
+    cursor: pointer;
+}
+.user_name{
+    font-size: large;
+}
+.user_sign{
+    color: lightgray;
+}
+.user_delete{
+    margin-top: -0.3rem;
+}
+.msg_num{
+    cursor: pointer;
 }
 .content{
-height: 70%;
+    height: 80%;
 }
 .operate{
-height: 20%;
+    height: 20%;
 }
