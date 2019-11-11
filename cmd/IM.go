@@ -12,4 +12,5 @@ func main() {
 func init() {
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("../web/static/"))))
 	http.Handle("/index.scfy", router.NewIndexTemplateRouter())
+	http.Handle("/delete_talker.action", router.NewTalkerAction())
 }

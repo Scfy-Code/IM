@@ -2,22 +2,21 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {{template "head"}}
     <link type="text/css" rel="stylesheet" href="/static/bussiness/index/index.css">
-    <title></title>
+    <title>巨疑</title>
 </head>
 
 <body>
-    <div class="top row">
-        <div class="col-4 h-100" id="logo"> </div>
+    <div class="top row bg-primary">
+        <div class="col-4 h-100" id="logo">
+            <img class="img-fluid" src="/static/images/logo.png">
+        </div>
         <div class="col-4 h-100" id="search">
-            <div class="input-group" style="margin-top:4%;">
+            <div class="input-group">
                 <input type="text" class="form-control">
                 <div class="input-group-append">
-                    <button class="btn btn-primary">go</button>
+                    <button class="btn btn-success">go</button>
                 </div>
             </div>
         </div>
@@ -30,29 +29,39 @@
                     <div class="row" style="height:6%">
                         <div class="col-12 h-100">
                             <nav class="nav nav-tabs nav-fill" style="font-size: 2rem;">
-                                <a class="nav-item nav-link oi oi-person active" data-toggle="tab" data-placement="top"
-                                    title="好友列表" href="#friends"></a>
-                                <a class="nav-item nav-link oi oi-people" data-toggle="tab" data-placement="top"
-                                    title="群组列表" href="#groups"></a>
+                                <a class="nav-item nav-link oi oi-person active" data-toggle="tab" title="好友列表"
+                                    href="#friends"></a>
+                                <a class="nav-item nav-link oi oi-people" data-toggle="tab" title="群组列表"
+                                    href="#groups"></a>
                             </nav>
                         </div>
                     </div>
                     <div class="tab-content" style="height:94%;" class="row">
-                        <div id="friends" class="col-12 h-100 mh-100 tab-pane overflow-auto active">
-                            {{range .}}
-                            <div class="row border border-primry border-top-0 border-left-0 border-right-0 user">
-                                <div class="col-2 h-100">
-                                    <img class="user_avatar" src="{{.userAvatar}}" alt="">
+                        <div id="friends" class="col-12 h-100 mh-100 tab-pane active">
+                            {{range .talkerList}}
+                            <div id="{{.talkerID}}"
+                                class="row border border-primry border-top-0 border-left-0 border-right-0 user">
+                                <div class="col-2 h-100" onclick="show_talkerInfo(this)">
+                                    <img class="user_avatar rounded-circle" src="{{.talkerAvatar}}" alt="">
+                                    {{if .status}}
+                                    <span class="oi oi-link-intact text-success"></span>
+                                    {{else}}
+                                    <span class="oi oi-link-broken text-darrk"></span>
+                                    {{end}}
                                 </div>
-                                <div class="col-8 h-100 user_info">
+                                <div class="col-8 h-100 user_info" onclick="ex_talker('{{.talkerID}}')">
                                     <div class="row h-50">
-                                        <div class="col-3 user_name">{{.userNickName}}</div>
-                                        <div class="col-9 user_sign">
-                                            {{.userSign}}</div>
+                                        <div class="col-3 user_name font-weight-bold">{{.talkerNickName}}</div>
+                                        <div class="col-9 user_sign small">
+                                            {{.talkerSign}}</div>
                                     </div>
                                     <div class="row h-50 use_msg">
-                                        <div class="col-1 msg_type oi oi-chat text-success"></div>
-                                        <div class="col-11 msg_info"></div>
+                                        {{if .msgContent}}
+                                        <div class="col-1 msg_type oi oi-chat text-warning"></div>
+                                        <div class="col-11 msg_info"><mark>{{.msgContent}}</mark></div>
+                                        {{else}}
+                                        <div class="col-1 msg_type oi oi-chat text-dark"></div>
+                                        {{end}}
                                     </div>
                                 </div>
                                 <div class="col-2 h-100 user_delete">
@@ -60,39 +69,162 @@
                                         <div class="col-4 h-100"></div>
                                         <div class="col-4 h-100"></div>
                                         <div class="col-4 h-100">
-                                            <a class="oi oi-circle-x text-danger" href="javascript:void(0);"
-                                                onclick="del_user(this)"></a>
+                                            <a class="oi oi-circle-x text-warning" href="javascript:void(0);"
+                                                onclick="del_user('{{.talkerID}}')"></a>
                                         </div>
                                     </div>
                                     <div class="row" style="height: 33.33%;">
                                         <div class="col-12 h-100">
-                                            <span class="msg_num badge badge-pill badge-warning">99+</span>
+                                            <span class="msg_num badge badge-pill badge-danger">99+</span>
                                         </div>
                                     </div>
                                     <div class="row" style="height: 33.33%;">
-                                        <div class="col-12"></div>
+                                        <div class="col-4">
+
+                                        </div>
+                                        <div class="col-4">
+
+                                        </div>
+                                        <div class="col-4">
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             {{end}}
                         </div>
                         <div id="groups" class="col-12 h-100 mh-100 tab-pane overflow-auto">
-                            <div class="row border" style="height: 5%;">
-                                <div class="col-2 h-100">
-                                    <img src="/static/images/avatar.png" style="height: 3rem;" alt="">
+                            {{range .groupList}}
+                            <div id="{{.groupID}}"
+                                class="row border border-primry border-top-0 border-left-0 border-right-0 user">
+                                <div class="col-2 h-100" onclick="show_talkerInfo(this)">
+                                    <img class="user_avatar rounded-circle" src="{{.groupAvatar}}" alt="">
+                                    {{if .status}}
+                                    <span class="oi oi-link-intact text-success"></span>
+                                    {{else}}
+                                    <span class="oi oi-link-broken text-darrk"></span>
+                                    {{end}}
                                 </div>
-                                <div class="col-10 h-100">
-                                    <div class="row h-50">王二牛</div>
-                                    <div class="row h-50">识者！兵之所幸。兵者！胜之所依。</div>
+                                <div class="col-8 h-100 user_info" onclick="ex_talker('{{.groupID}}')">
+                                    <div class="row h-50">
+                                        <div class="col-3 user_name font-weight-bold">{{.groupNickName}}</div>
+                                        <div class="col-9 user_sign small">
+                                            {{.groupSign}}</div>
+                                    </div>
+                                    <div class="row h-50 use_msg">
+                                        {{if .msgContent}}
+                                        <div class="col-1 msg_type oi oi-chat text-warning"></div>
+                                        <div class="col-11 msg_info"><mark>{{.msgContent}}</mark></div>
+                                        {{else}}
+                                        <div class="col-1 msg_type oi oi-chat text-dark"></div>
+                                        {{end}}
+                                    </div>
+                                </div>
+                                <div class="col-2 h-100 user_delete">
+                                    <div class="row" style="height: 33.33%;">
+                                        <div class="col-4 h-100"></div>
+                                        <div class="col-4 h-100"></div>
+                                        <div class="col-4 h-100">
+                                            <a class="oi oi-circle-x text-warning" href="javascript:void(0);"
+                                                onclick="del_user('{{.groupID}}')"></a>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="height: 33.33%;">
+                                        <div class="col-12 h-100">
+                                            <span class="msg_num badge badge-pill badge-danger">99+</span>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="height: 33.33%;">
+                                        <div class="col-4">
+
+                                        </div>
+                                        <div class="col-4">
+
+                                        </div>
+                                        <div class="col-4">
+
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            {{end}}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-9 h-100">
-            <div class="row content border"></div>
+            <div class="row content border">
+                <div class="col-12 h-100">
+                    <div class="row text_message">
+                        <div class="col-1">
+                            <img class="float-right" src="/static/images/talker.png" style="height: 3rem;">
+                        </div>
+                        <div class="col-8 border border-top-0 border-left-0 border-right-0 border-warning">
+                            <div
+                                class="text_message_content text_message_content_left border border-warning border-bottom-0">
+                                智乱天下武逆乾坤智乱天下武逆乾坤智乱天下武逆乾坤智乱天下武逆乾坤智乱天下武逆乾坤智乱天下武逆乾坤智乱天下武逆乾坤智乱天下武逆乾坤智乱天下武逆乾坤智乱天下武逆乾坤智乱天下武逆乾坤智乱天下武逆乾坤智乱天下武逆乾坤
+                            </div>
+                        </div>
+                        <div class="col-3"></div>
+                    </div>
+                    <div class="row text_message">
+                        <div class="col-3"></div>
+                        <div class="col-8 border border-top-0 border-left-0 border-right-0 border-success">
+                            <div
+                                class="text_message_content text_message_content_right border border-success border-bottom-0">
+                                识者兵之所幸，勇者胜之所依
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <img src="/static/images/self.png" style="height: 3rem;">
+                        </div>
+                    </div>
+
+                    <div class="row image_message">
+                        <div class="col-1">
+                            <img class="float-right" src="/static/images/talker.png" style="height: 3rem;">
+                        </div>
+                        <div class="col-8 border border-top-0 border-left-0 border-right-0 border-warning">
+                            <img class="image_message_content image_message_content_left" src="/static/images/logo.png"
+                                alt="">
+                        </div>
+                        <div class="col-3"></div>
+                    </div>
+                    <div class="row image_message">
+                        <div class="col-3"></div>
+                        <div class="col-8 border border-top-0 border-left-0 border-right-0 border-success">
+                            <img class="image_message_content image_message_content_right" src="/static/images/logo.png"
+                                alt="" srcset="">
+                        </div>
+                        <div class="col-1">
+                            <img src="/static/images/self.png" style="height: 3rem;">
+                        </div>
+                    </div>
+                    <div class="row file_message">
+                        <div class="col-1">
+                            <img class="float-right" src="/static/images/talker.png" style="height: 3rem;">
+                        </div>
+                        <div class="col-8 border border-top-0 border-left-0 border-right-0 border-warning">
+                            <div class="file_message file_message_content_left">
+                                <span class=" oi oi-file"></span>
+                            </div>
+                        </div>
+                        <div class="col-3"></div>
+                    </div>
+                    <div class="row message">
+                        <div class="col-3"></div>
+                        <div class="col-8 border border-top-0 border-left-0 border-right-0 border-success">
+                            <div class="file_message file_message_content_right">
+                                <span class=" oi oi-file"></span>
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <img src="/static/images/self.png" style="height: 3rem;">
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row operate">
                 <div class="col-12 h-100">
                     <div class="row h-25 bg-light border">
@@ -106,11 +238,13 @@
                         </nav>
                     </div>
                     <div class="row h-75 tab-content">
+                        <input type="hidden" id="receiver" name="receiver" value="">
                         <div class="col-12 tab-pane active h-100" id="text">
                             <div class="input-group h-100 w-100">
-                                <textarea class="h-100" name="" id="" style="resize: none;width:90%;"></textarea>
+                                <textarea class="h-100" name="message" id="message"
+                                    style="resize: none;width:90%;"></textarea>
                                 <div class="input-group-append" style="width: 10%;">
-                                    <button class="btn btn-primary w-100" accesskey="a"
+                                    <button type="submit" class="btn btn-primary w-100" onclick="send_message()"
                                         style=" font-size: 2.4rem;">发送</button>
                                 </div>
                             </div>

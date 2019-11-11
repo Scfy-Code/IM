@@ -4,8 +4,14 @@ html,body{
 .top{
     height: 10%;
 }
+#search{
+    padding-top: 2.4rem;
+}
 .bottom{
     height:90%;
+}
+#friends{
+    overflow-x: auto;
 }
 .user{
     height: 3.8rem;
@@ -32,6 +38,56 @@ html,body{
 }
 .content{
     height: 80%;
+    overflow-y: auto;
+}
+.text_message{
+    height: auto;
+}
+.text_message_content{
+    padding:0.5rem;
+    margin-top :0.5rem;
+    font-size: 1.5rem;
+    width: fit-content;
+    max-width: 50rem;
+}
+.text_message_content_left{ 
+    margin-left: 3rem;
+    float: left;
+}
+.text_message_content_right{
+    margin-right: 3rem;
+    float: right;
+}
+.image_message{
+    height: 8rem;
+}
+.image_message_content{
+    margin-top:0.5rem;
+    height: 7.5rem;
+    width: auto;
+}
+.image_message_content_left{
+    margin-left: 3rem;
+    float: left;
+}
+.image_message_content_right{
+    margin-right: 3rem;
+    float: right;
+}
+.file_message{
+    height: 6rem;
+}
+.file_message{
+    font-size: 5.5rem;
+    margin-top:0.5rem ;
+}
+.file_message_content_left{
+    margin-left:3rem ;
+    float:left;
+}
+.file_message_content_right{
+    margin-right:3rem ;
+    float:right;
 }
 .operate{
     height: 20%;
