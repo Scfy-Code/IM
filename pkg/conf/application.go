@@ -7,12 +7,10 @@ import (
 	"os"
 
 	"github.com/Scfy-Code/IM/pkg/client"
+	myLog "github.com/Scfy-Code/IM/pkg/log"
 	"github.com/Scfy-Code/IM/pkg/view"
 	"github.com/go-redis/redis"
 )
-
-// APP 应用的配置信息
-var APP *application = new(application)
 
 type application struct {
 	TemplateDir    string                  `json:"templateDir"`    //视图目录
@@ -30,11 +28,13 @@ func init() {
 		log.Printf("读取配置文件出错！错误信息：%s", err.Error())
 		os.Exit(2)
 	}
-	err0 := json.Unmarshal(data, APP)
+	var app *application = new(application)
+	err0 := json.Unmarshal(data, app)
 	if err0 != nil {
 		log.Printf("解析配置文件出错！错误信息：%s", err0.Error())
 		os.Exit(2)
 	}
-	view.RegistTemplateDir(APP.TemplateDir)
-	client.RegistClient(APP.DriverName, APP.DataSourceName)
+	myLog.RegistLogDir(app.LoggerDir)
+	view.RegistTemplateDir(app.TemplateDir)
+	client.RegistClient(app.DriverName, app.DataSourceName)
 }

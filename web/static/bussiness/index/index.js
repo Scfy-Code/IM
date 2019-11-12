@@ -1,5 +1,5 @@
 //删除用户
-function del_user(talkerID) {
+function del_talker(talkerID) {
     $.ajax({
         url: "/delete_talker.action",
         data: {
@@ -32,7 +32,7 @@ function ex_talker(talkerID) {
     })
 }
 //展示聊天对象信息
-function show_userInfo(obj) {
+function show_talkerInfo(obj) {
 
 }
 //发送聊天消息

@@ -1,39 +1,102 @@
 html,body{
     height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 .top{
-    height: 10%;
+    height: 5rem;
 }
-#search{
-    padding-top: 2.4rem;
+#logo{
+    height: 100%;
+    width: auto;
 }
 .bottom{
-    height:90%;
+    display: flex;
+    flex-direction: row;
+    top: 5rem;
+    flex: 1;
 }
-#friends{
-    overflow-x: auto;
+.left{
+    flex: 5;
+    display: flex;
+    flex-direction: column;
 }
-.user{
+
+.listType{
+    height: 4rem;
+}
+.list{
+    flex: 1;
+    top: 4rem;
+}
+#friends,#teams{
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+}
+.talker,.team{
+    display: flex;
+    flex-direction: row;
     height: 3.8rem;
     padding-top: 0.3rem;
 }
-.user_avatar{
+.talkerAvatar,.teamAvatar{
+   flex: 3;
+}
+.talkerAvatarImage,.teamAvatarImage{
     height: 3rem;
     cursor: pointer;
 }
-.user_info{
+.talkerInfo,.teamInfo{
+    flex: 14;
+    display: flex;
+    flex-direction: column;
     cursor: pointer;
 }
-.user_name{
+.talkerBase,.teamBase{
+    display: flex;
+    flex-direction: row;
+    flex:1
+}
+.talkerName,.teamName{
+    flex: 3;
     font-size: large;
 }
-.user_sign{
+.talkerSign,.teamNotice{
+    flex: 7;
     color: lightgray;
 }
-.user_delete{
-    margin-top: -0.3rem;
+.talkerMessage,.teamMessage{
+    display: flex;
+    flex-direction:row;
+    flex:1
 }
-.msg_num{
+.msgType{
+    flex: 1;
+}
+.msgInfo{
+    flex: 11;
+}
+.extend{
+    display: flex;
+    flex-direction: column;
+    margin-top: -0.3rem;
+    flex: 3;
+}
+.deleteTalker,.msgPoint,.none,.quitTeam{
+    flex: 1;
+}
+.deleteTalker,.quitTeam{
+    display: flex;
+    flex-direction: row;
+}
+.del{
+    flex: 1;
+}
+.right{
+    flex: 15;
+}
+.msgNum{
     cursor: pointer;
 }
 .content{
@@ -48,7 +111,7 @@ html,body{
     margin-top :0.5rem;
     font-size: 1.5rem;
     width: fit-content;
-    max-width: 50rem;
+    max-width: 55rem;
 }
 .text_message_content_left{ 
     margin-left: 3rem;

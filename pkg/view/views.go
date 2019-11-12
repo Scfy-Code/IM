@@ -38,7 +38,9 @@ func createTemplates(templateList []string) *template.Template {
 
 // RegistTemplateDir 注册一个模板扫描路径
 func RegistTemplateDir(templateDir string) {
-	templates = createTemplates(scanTemplateDir(templateDir))
+	templates = createTemplates(
+		scanTemplateDir(templateDir),
+	)
 }
 
 // ReturnTemplate 给客户端返回指定名称的页面
