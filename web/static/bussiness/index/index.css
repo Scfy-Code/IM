@@ -1,7 +1,11 @@
 html,body{
     height: 100%;
-    display: flex;
-    flex-direction: column;
+    width:100%;
+}
+.view{
+    position: relative;
+    height: 100%;
+    width: 100%;
 }
 .top{
     height: 5rem;
@@ -11,44 +15,56 @@ html,body{
     width: auto;
 }
 .bottom{
-    display: flex;
-    flex-direction: row;
+    position: absolute;
     top: 5rem;
-    flex: 1;
+    bottom: 0;
+    width: 100%;
 }
 .left{
-    flex: 5;
-    display: flex;
-    flex-direction: column;
+    position: relative;
+    height: 100%;
+    width: 40rem;
+    border-right-color:#6c757d;
+    border-right-style: solid;
+    border-right-width: 1px;
 }
 
 .listType{
-    height: 4rem;
+    height: 3.5rem;
+    width: 100%;
+    font-size: 2rem;
 }
 .list{
-    flex: 1;
-    top: 4rem;
+    position: absolute;
+    top: 3.5rem;
+    bottom: 0;
+    width: 100%;
 }
 #friends,#teams{
     height: 100%;
     width: 100%;
-    overflow-y: auto;
+    overflow-y: auto !important;
 }
 .talker,.team{
     display: flex;
     flex-direction: row;
     height: 3.8rem;
     padding-top: 0.3rem;
+    border-bottom-color:#6c757d;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-right-radius: -0.5rem;
+    border-bottom-left-radius: -0.5rem;
 }
 .talkerAvatar,.teamAvatar{
-   flex: 3;
+   flex: 2.5;
 }
 .talkerAvatarImage,.teamAvatarImage{
     height: 3rem;
     cursor: pointer;
 }
 .talkerInfo,.teamInfo{
-    flex: 14;
+    flex: 16.5;
     display: flex;
     flex-direction: column;
     cursor: pointer;
@@ -69,7 +85,7 @@ html,body{
 .talkerMessage,.teamMessage{
     display: flex;
     flex-direction:row;
-    flex:1
+    flex:1;
 }
 .msgType{
     flex: 1;
@@ -81,7 +97,7 @@ html,body{
     display: flex;
     flex-direction: column;
     margin-top: -0.3rem;
-    flex: 3;
+    flex: 1;
 }
 .deleteTalker,.msgPoint,.none,.quitTeam{
     flex: 1;
@@ -93,13 +109,21 @@ html,body{
 .del{
     flex: 1;
 }
-.right{
-    flex: 15;
-}
 .msgNum{
     cursor: pointer;
 }
-.content{
+.right{
+    position: absolute;
+    top: 0;
+    left: 40rem;
+    right: 0;
+    bottom: 0;
+}
+.talker-content{
+    height: 3rem;
+    font-size: 1.5rem;
+}
+/* .content{
     height: 80%;
     overflow-y: auto;
 }
@@ -145,7 +169,7 @@ html,body{
     margin-top:0.5rem ;
 }
 .file_message_content_left{
-    margin-left:3rem ;
+    margin-left:3rem !important;
     float:left;
 }
 .file_message_content_right{
@@ -154,4 +178,4 @@ html,body{
 }
 .operate{
     height: 20%;
-}
+} */

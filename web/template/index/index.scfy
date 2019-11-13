@@ -8,111 +8,117 @@
 </head>
 
 <body>
-    <div class="top bg-primary">
-        <img id="logo" src="/static/images/logo.png">
-    </div>
-    <div class="bottom">
-        <div class="left">
-            <div class="listType">
-                <nav class="nav nav-tabs nav-fill" style="font-size: 2rem;">
-                    <a class="nav-item nav-link oi oi-person active" data-toggle="tab" title="好友列表" href="#friends"></a>
-                    <a class="nav-item nav-link oi oi-people" data-toggle="tab" title="群组列表" href="#teams"></a>
-                </nav>
-            </div>
-            <div class="list tab-content">
-                <div id="friends" class="tab-pane active">
-                    {{range .talkerList}}
-                    <div id="{{.talkerID}}"
-                        class="border border-primry border-top-0 border-left-0 border-right-0 talker">
-                        <div class="talkerAvatar" onclick="show_talkerInfo(this)">
-                            <img class="talkerAvatarImage rounded-circle" src="{{.talkerAvatar}}" alt="">
-                            {{if .status}}
-                            <span class="oi oi-link-intact text-success"></span>
-                            {{else}}
-                            <span class="oi oi-link-broken text-darrk"></span>
-                            {{end}}
-                        </div>
-                        <div class="talkerInfo" onclick="ex_talker('{{.talkerID}}')">
-                            <div class="talkerBase">
-                                <div class="talkerName font-weight-bold">{{.talkerNickName}}</div>
-                                <div class="talkerSign small">
-                                    {{.talkerSign}}</div>
-                            </div>
-                            <div class="talkerMessage">
-                                {{if .msgContent}}
-                                <div class="msgType oi oi-chat text-warning"></div>
-                                <div class="msgInfo"><mark>{{.msgContent}}</mark></div>
-                                {{else}}
-                                <div class="msgType oi oi-chat text-dark"></div>
-                                <div class="msgInfo"></div>
-                                {{end}}
-                            </div>
-                        </div>
-                        <div class="extend">
-                            <div class="deleteTalker">
-                                <div class="del"></div>
-                                <div class="del"></div>
-                                <div class="del">
-                                    <a class="oi oi-circle-x text-warning" href="javascript:void(0);"
-                                        onclick="del_talker('{{.talkerID}}')"></a>
-                                </div>
-                            </div>
-                            <div class="msgPoint">
-                                <span class="msgNum badge badge-pill badge-danger">99+</span>
-                            </div>
-                            <div class="none">
-
-                            </div>
-                        </div>
-                    </div>
-                    {{end}}
+    <div class="view">
+        <div class="top bg-primary">
+            <img id="logo" src="/static/images/logo.png">
+        </div>
+        <div class="bottom">
+            <div class="left">
+                <div class="listType">
+                    <nav class="nav nav-tabs nav-fill">
+                        <a class="nav-item nav-link oi oi-person active" data-toggle="tab" title="好友列表"
+                            href="#friends"></a>
+                        <a class="nav-item nav-link oi oi-people" data-toggle="tab" title="群组列表" href="#teams"></a>
+                    </nav>
                 </div>
-                <div id="teams" class="tab-pane">
-                    {{range .teamList}}
-                    <div id="{{.teamID}}" class="border border-primry border-top-0 border-left-0 border-right-0 team">
-                        <div class="teamAvatar" onclick="show_teamInfo(this)">
-                            <img class="teamAvatarImage rounded-circle" src="{{.teamAvatar}}" alt="">
-                        </div>
-                        <div class="teamInfo" onclick="ex_team('{{.teamID}}')">
-                            <div class="teamBase">
-                                <div class="teamName font-weight-bold">{{.teamName}}</div>
-                                <div class="teamNotice small">
-                                    {{.teamNotice}}</div>
-                            </div>
-                            <div class="teamMessage">
-                                {{if .msgContent}}
-                                <div class="msgType oi oi-chat text-warning"></div>
-                                <div class="msgInfo"><mark>{{.msgContent}}</mark></div>
+                <div class="list tab-content">
+                    <div id="friends" class="tab-pane active">
+                        {{range .talkerList}}
+                        <div id="{{.bindID}}" class="talker">
+                            <div class="talkerAvatar" onclick="show_talkerInfo('{{.talkerID}}')">
+                                <img class="talkerAvatarImage rounded-circle" src="{{.talkerAvatar}}" alt="">
+                                {{if .status}}
+                                <span class="oi oi-link-intact text-success"></span>
                                 {{else}}
-                                <div class="msgType oi oi-chat text-dark"></div>
-                                <div class="msgInfo"></div>
+                                <span class="oi oi-link-broken text-darrk"></span>
                                 {{end}}
                             </div>
-                        </div>
-                        <div class="extend">
-                            <div class="quitTeam">
-                                <div class="del"></div>
-                                <div class="del"></div>
-                                <div class="del">
-                                    <a class="oi oi-circle-x text-warning" href="javascript:void(0);"
-                                        onclick="quit_team('{{.teamID}}')"></a>
+                            <div class="talkerInfo" onclick="ex_talker('{{.talkerID}}')">
+                                <div class="talkerBase">
+                                    <div class="talkerName font-weight-bold">{{.talkerNickName}}</div>
+                                    <div class="talkerSign small">
+                                        {{.talkerSign}}</div>
+                                </div>
+                                <div class="talkerMessage">
+                                    {{if .msgContent}}
+                                    <div class="msgType oi oi-chat text-warning"></div>
+                                    <div class="msgInfo"><mark>{{.msgContent}}</mark></div>
+                                    {{else}}
+                                    <div class="msgType oi oi-chat text-dark"></div>
+                                    <div class="msgInfo"></div>
+                                    {{end}}
                                 </div>
                             </div>
-                            <div class="">
+                            <div class="extend">
+                                <div class="deleteTalker">
+                                    <div class="del"></div>
+                                    <div class="del"></div>
+                                    <div class="del">
+                                        <a class="oi oi-circle-x text-warning" href="javascript:void(0);"
+                                            onclick="del_talker('{{.bindID}}')"></a>
+                                    </div>
+                                </div>
                                 <div class="msgPoint">
-                                    <span class="msgNum badge badge-pill badge-danger">99+</span>
+                                    <span class="msgNum badge badge-pill badge-danger"></span>
+                                </div>
+                                <div class="none">
+
                                 </div>
                             </div>
-                            <div class="none">
+                        </div>
+                        {{end}}
+                    </div>
+                    <div id="teams" class="tab-pane fade">
+                        {{range .teamList}}
+                        <div id="{{.bindID}}" class="team">
+                            <div class="teamAvatar" onclick="show_teamInfo(this)">
+                                <img class="teamAvatarImage rounded-circle" src="{{.teamAvatar}}" alt="">
+                            </div>
+                            <div class="teamInfo" onclick="ex_team('{{.teamID}}')">
+                                <div class="teamBase">
+                                    <div class="teamName font-weight-bold">{{.teamName}}</div>
+                                    <div class="teamNotice small">
+                                        {{.teamNotice}}</div>
+                                </div>
+                                <div class="teamMessage">
+                                    {{if .msgContent}}
+                                    <div class="msgType oi oi-chat text-warning"></div>
+                                    <div class="msgInfo"><mark>{{.msgContent}}</mark></div>
+                                    {{else}}
+                                    <div class="msgType oi oi-chat text-dark"></div>
+                                    <div class="msgInfo"></div>
+                                    {{end}}
+                                </div>
+                            </div>
+                            <div class="extend">
+                                <div class="quitTeam">
+                                    <div class="del"></div>
+                                    <div class="del"></div>
+                                    <div class="del">
+                                        <a class="oi oi-circle-x text-warning" href="javascript:void(0);"
+                                            onclick="quit_team('{{.bindID}}')"></a>
+                                    </div>
+                                </div>
+                                <div class="msgPoint">
+                                    <span class="msgNum badge badge-pill badge-danger"></span>
+                                </div>
+                                <div class="none">
 
+                                </div>
                             </div>
                         </div>
+                        {{end}}
                     </div>
-                    {{end}}
+                </div>
+            </div>
+            <div class="right">
+                <div class="talker-content">
+                    <nav id="talker-list" class="nav nav-tabs">
+                        <a class="nav-item nav-link oi oi-home" data-toggle="tab" title="好友列表" href="#home"></a>
+                    </nav>
                 </div>
             </div>
         </div>
-        <div class="right"></div>
     </div>
     {{template "foot"}}
     <script type="text/javascript" src="/static/bussiness/index/index.js"></script>

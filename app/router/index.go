@@ -9,21 +9,23 @@ import (
 )
 
 type indexTemplate struct {
-	indexService service.IndexService
+	talkerService service.TalkerService
+	teamService   service.TeamService
 }
 
 func (it indexTemplate) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	var (
 		data map[string][]map[string]interface{} = make(map[string][]map[string]interface{})
 	)
-	data["talkerList"] = it.indexService.GetTalkerList("111111111")
-	data["teamList"] = it.indexService.GetTeamList("111111111")
+	data["talkerList"] = it.talkerService.SelectTalkers("111111111")
+	data["teamList"] = it.teamService.SelectTeams("111111111")
 	view.ReturnTemplate("index.scfy").Execute(w, data)
 }
 
 // NewIndexTemplateRouter 返回首页模板路由
 func NewIndexTemplateRouter() http.Handler {
 	return indexTemplate{
-		service.NewIndexService(),
+		service.NewTalkerService(),
+		service.NewTeamService(),
 	}
 }

@@ -1,17 +1,38 @@
 //删除用户
-function del_talker(talkerID) {
+function del_talker(bindID) {
     $.ajax({
         url: "/delete_talker.action",
         data: {
-            talkerID: talkerID,
+            bindID: bindID,
         },
         type: "POST",
         dataType: "json",
         async: false,
         success: function (data) {
             if (data.status == "success") {
-                $("#" + talkerID).remove();
-            } else {
+                $("#" + bindID).remove();
+            }
+            if (data.status == "failure") {
+
+            }
+        }
+    });
+}
+// 退出群组
+function quit_team(bindID) {
+    $.ajax({
+        url: "/quit_team.action",
+        data: {
+            bindID: bindID,
+        },
+        type: "POST",
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            if (data.status == "success") {
+                $("#" + bindID).remove();
+            }
+            if (data.status == "failure") {
 
             }
         }
@@ -27,9 +48,9 @@ function ex_talker(talkerID) {
         dataType: "json",
         async: false,
         success: function (data) {
-
         }
     })
+    $("#talker-list").append('<a class="nav-item nav-link" data-toggle="tab" title="好友列表" href = ""></a>');
 }
 //展示聊天对象信息
 function show_talkerInfo(obj) {
