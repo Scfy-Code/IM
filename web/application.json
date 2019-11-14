@@ -1,4 +1,5 @@
 {
+    "runtimeEnv": "DEV",
     "templateDir": "../web/template",
     "staticDir": "../web/static",
     "uploadDir": "",

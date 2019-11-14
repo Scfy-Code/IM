@@ -14,6 +14,11 @@ type talkerServiceImpl struct {
 	talkerMapper mapper.TalkerMapper
 }
 
+func newTalkerServiceImpl() TalkerService {
+	return &talkerServiceImpl{
+		mapper.NewTalkerMapper("talkerMapper"),
+	}
+}
 func (tsi talkerServiceImpl) CreateTalker(talkerID string) bool {
 	return false
 }
@@ -31,8 +36,11 @@ func (tsi talkerServiceImpl) SelectTalkers(selfID string) []map[string]interface
 }
 
 // NewTalkerService 新建一个好友数据层服务对象
-func NewTalkerService() TalkerService {
-	return &talkerServiceImpl{
-		mapper.NewTalkerMapper(),
+func NewTalkerService(serviceName string) TalkerService {
+	switch serviceName {
+	case "talkerService":
+		return newTalkerServiceImpl()
+	default:
+		return newTalkerServiceImpl()
 	}
 }

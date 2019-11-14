@@ -17,6 +17,6 @@ func (stl selectTalkerList) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 // NewSelectTalkerRouter 查询好友路由
 func NewSelectTalkerRouter() http.Handler {
 	return selectTalkerList{
-		service.NewTalkerService(),
+		service.NewTalkerService("talkerService"),
 	}
 }

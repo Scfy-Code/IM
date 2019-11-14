@@ -5,7 +5,6 @@ import (
 
 	"github.com/Scfy-Code/IM/app/entity"
 	"github.com/Scfy-Code/IM/pkg/client"
-	_ "github.com/Scfy-Code/IM/pkg/conf" //只使用初始化方法
 )
 
 // TalkerMapper 好友数据库映射对象
@@ -20,12 +19,18 @@ type talkerMapperImpl struct {
 	sqlClient *sql.DB
 }
 
+func newTalkerMapperImpl() TalkerMapper {
+	return &talkerMapperImpl{
+		client.SQLClient,
+	}
+}
+
 func (tmi talkerMapperImpl) CreateTalker(talkerID string) bool {
 	return false
 }
 func (tmi talkerMapperImpl) DeleteTalker(bindID string) bool {
 	var (
-		sql = "DELETE FROM talker_talker WHERE id = ?"
+		sql = "DELETE FROM user_user WHERE id = ?"
 	)
 	stmt, err0 := tmi.sqlClient.Prepare(sql)
 	if err0 != nil {
@@ -62,7 +67,36 @@ func (tmi talkerMapperImpl) SelectTalker(TalkerID string) map[string]interface{}
 
 func (tmi talkerMapperImpl) SelectTalkers(selfID string) []map[string]interface{} {
 	var (
-		sql    = "SELECT l.id AS bindID, l.friendID AS id, IF(l.nickName1 IS NULL, s.nickName, l.nickName1) AS nickName, s.avatar, s.sign, FALSE AS status FROM talker_talker l LEFT JOIN talker s ON l.friendID = s.id WHERE selfID = ? UNION ALL SELECT l.id AS bindID, l.selfID AS id, IF(l.nickName2 IS NULL, s.nickName, l.nickName2) AS nickName, s.avatar, s.sign, FALSE AS status FROM talker_talker l LEFT JOIN talker s ON l.friendID = s.id WHERE friendID = ?"
+		sql = `SELECT 
+					uu.id AS bindID,
+					uu.sponsorID AS id,
+					IF(uu.sponsornote IS NULL,
+						u.nickName,
+						uu.sponsorNote) AS nickName,
+					u.avatar,
+					u.sign,
+					FALSE AS status
+				FROM
+					user_user uu
+						LEFT JOIN
+					user u ON uu.sponsorID = u.id
+				WHERE
+					uu.sponsorID=?
+				UNION ALL SELECT 
+					uu.id AS bindID,
+					uu.sponsorID AS id,
+					IF(uu.sponsornote IS NULL,
+						u.nickName,
+						uu.sponsorNote) AS nickName,
+					u.avatar,
+					u.sign,
+					FALSE AS status
+				FROM
+					user_user uu
+						LEFT JOIN
+					user u ON uu.sponsorID = u.id
+				WHERE
+					uu.receiverID=?`
 		result []map[string]interface{}
 	)
 	rows, err0 := tmi.sqlClient.Query(sql, selfID, selfID)
@@ -81,8 +115,11 @@ func (tmi talkerMapperImpl) SelectTalkers(selfID string) []map[string]interface{
 }
 
 // NewTalkerMapper 新建好友数据映射对象
-func NewTalkerMapper() TalkerMapper {
-	return talkerMapperImpl{
-		client.SQLClient,
+func NewTalkerMapper(mapperName string) TalkerMapper {
+	switch mapperName {
+	case "talkerMapper":
+		return newTalkerMapperImpl()
+	default:
+		return newTalkerMapperImpl()
 	}
 }

@@ -5,6 +5,8 @@ import (
 	"log"
 	"os"
 	"time"
+
+	"github.com/Scfy-Code/IM/pkg"
 )
 
 var (
@@ -21,12 +23,15 @@ func NewWarnLogger() *log.Logger {
 	return log.New(io.MultiWriter(os.Stdout, warnOut), "warn-", log.Llongfile|log.LstdFlags)
 }
 
-// RegistLogDir 注册日志l
-func RegistLogDir(logDir string) {
-	infoLog, err0 := os.OpenFile(logDir+"/info-"+time.Now().Format("2006-01-02")+".log", os.O_CREATE|os.O_APPEND|os.O_RDWR, os.ModePerm)
-	warnLog, err1 := os.OpenFile(logDir+"/warn-"+time.Now().Format("2006-01-02")+".log", os.O_CREATE|os.O_APPEND|os.O_RDWR, os.ModePerm)
-	if err0 != nil || err1 != nil {
-		os.Exit(2)
+//
+func init() {
+	infoLog, err0 := os.OpenFile(pkg.APP.LoggerDir+"/info-"+time.Now().Format("2006-01-02")+".log", os.O_CREATE|os.O_APPEND|os.O_RDWR, os.ModePerm)
+	if err0 != nil {
+		log.Fatalf("设置常规日志文件出错!错误信息：%s", err0.Error())
+	}
+	warnLog, err1 := os.OpenFile(pkg.APP.LoggerDir+"/warn-"+time.Now().Format("2006-01-02")+".log", os.O_CREATE|os.O_APPEND|os.O_RDWR, os.ModePerm)
+	if err1 != nil {
+		log.Fatalf("设置错误日志文件出错!错误信息：%s", err0.Error())
 	}
 	infoOut = infoLog
 	warnOut = warnLog

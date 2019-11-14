@@ -1,4 +1,4 @@
 cd ../cmd
-go build -o ../bin/IM.exe ./IM.go
+go build -o ../bin/IM ./IM.go
 cd ../bin
 REM IM.exe

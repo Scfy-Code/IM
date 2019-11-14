@@ -59,7 +59,7 @@ function show_talkerInfo(obj) {
 //发送聊天消息
 function send_message() {
     var receiverID = $("#receiver").val();
-    var message = $("#message").val();
+    var message = $("#textmessage").val();
     $.ajax({
         url: "",
         data: {

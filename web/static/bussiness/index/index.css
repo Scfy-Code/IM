@@ -24,9 +24,9 @@ html,body{
     position: relative;
     height: 100%;
     width: 40rem;
-    border-right-color:#6c757d;
-    border-right-style: solid;
+    border-right-color: gray;
     border-right-width: 1px;
+    border-right-style: solid;
 }
 
 .listType{
@@ -45,42 +45,35 @@ html,body{
     width: 100%;
     overflow-y: auto !important;
 }
-.talker,.team{
-    display: flex;
-    flex-direction: row;
-    height: 3.8rem;
-    padding-top: 0.3rem;
-    border-bottom-color:#6c757d;
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-bottom-right-radius: -0.5rem;
-    border-bottom-left-radius: -0.5rem;
-}
-.talker-warn{
+.talker-warn,.team-warn{
     color: #856404;
     display: flex;
     flex-direction: row;
     background-color: #fff3cd;
     height: 3.8rem;
     padding-top: 0.3rem;
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-bottom-color: #ffeeba;
-    border-bottom-right-radius: -0.5rem;
-    border-bottom-left-radius: -0.5rem;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: #ffeeba;
+    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
 }
-.talker-inline{
+.talker-inline,.team-inline{
     color: #004085;
     display: flex;
     flex-direction: row;
     background-color: #cce5ff;
     height: 3.8rem;
     padding-top: 0.3rem;
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-bottom-color: #b8daff;
-    border-bottom-right-radius: -0.5rem;
-    border-bottom-left-radius: -0.5rem;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: #b8daff;
+    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
 }
 .talker-outline{
     color: black;
@@ -89,11 +82,28 @@ html,body{
     background-color: #d6d8d9;
     height: 3.8rem;
     padding-top: 0.3rem;
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-bottom-color: #c6c8ca;
-    border-bottom-right-radius: -0.5rem;
-    border-bottom-left-radius: -0.5rem;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: #c6c8ca;
+    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+}
+.talker-selected,.team-selected{
+    color: #818182;
+    display: flex;
+    flex-direction: row;
+    background-color: #fefefe;
+    height: 3.8rem;
+    padding-top: 0.3rem;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: #fefefe;
+    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
 }
 .talkerAvatar,.teamAvatar{
    flex: 2.5;
@@ -160,6 +170,70 @@ html,body{
 .talker-content{
     height: 3rem;
     font-size: 1.5rem;
+}
+.features{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 12rem;
+}
+.feature-option{
+    position: relative;
+    height: 3rem;
+}
+.feature-content{
+    position: absolute;
+    width: 100%;
+    height: 9rem;
+    padding: 0.1rem;
+}
+#text-content{
+    position: absolute;
+    height: 8.8rem;
+    top: 0;
+    left: 0.1rem;
+    bottom: 0.1rem;
+    right: 8.8rem;
+}
+#image-content{
+    position: absolute;
+    height: 8.8rem;
+    top: 0;
+    left: 0.1rem;
+    bottom: 0.1rem;
+    right: 8.8rem;
+}
+#file-content{
+    position: absolute;
+    height: 8.8rem;
+    top: 0;
+    left: 0.1rem;
+    bottom: 0.1rem;
+    right: 8.8rem;
+}
+#emoji-content{
+    position: absolute;
+    height: 8.8rem;
+    top: 0;
+    left: 0.1rem;
+    bottom: 0.1rem;
+    right: 8.8rem;
+}
+#submit-button{
+    position: absolute;
+    height: 8.8rem;
+    width: 8.8rem;
+    right: 0;
+    top: 0;
+    font-size: 2rem;
+    color: white;
+    background-color: #007bff;
+    border-color:#007bff;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    padding-top: 3rem;
+    text-align: center;
+    cursor: pointer;
 }
 /* .content{
     height: 80%;

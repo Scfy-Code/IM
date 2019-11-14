@@ -12,7 +12,10 @@ type deleteTalker struct {
 }
 
 func (dt deleteTalker) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	var msg map[string]interface{} = make(map[string]interface{}, 2)
+	var msg = map[string]interface{}{
+		"status":  "success",
+		"message": "已退出群聊",
+	}
 	if r.Method == "POST" {
 		var (
 			bindID = r.PostFormValue("bindID")
@@ -35,6 +38,6 @@ func (dt deleteTalker) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 // NewDeleteTalkerRouter 新建删除好友路由
 func NewDeleteTalkerRouter() http.Handler {
 	return deleteTalker{
-		service.NewTalkerService(),
+		service.NewTalkerService("talkerService"),
 	}
 }

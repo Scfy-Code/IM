@@ -5,7 +5,6 @@ import (
 
 	"github.com/Scfy-Code/IM/app/entity"
 	"github.com/Scfy-Code/IM/pkg/client"
-	_ "github.com/Scfy-Code/IM/pkg/conf" //只使用初始化方法
 )
 
 // TeamMapper 群组数据层映层射接口
@@ -20,11 +19,26 @@ type teamMapperImpl struct {
 	sqlClient *sql.DB
 }
 
+func newTeamMapperImpl() TeamMapper {
+	return &teamMapperImpl{
+		client.SQLClient,
+	}
+}
+
 func (tmi teamMapperImpl) CreateTeam(teamID string) bool {
 	return false
 }
-func (tmi teamMapperImpl) DeleteTeam(teamID string) bool {
-	return false
+func (tmi teamMapperImpl) DeleteTeam(bindID string) bool {
+	var sql = "delete from team_user where id = ?"
+	stmt, err0 := tmi.sqlClient.Prepare(sql)
+	if err0 != nil {
+		return false
+	}
+	_, err1 := stmt.Exec(bindID)
+	if err1 != nil {
+		return false
+	}
+	return true
 }
 func (tmi teamMapperImpl) UpdateTeam(teamInfo map[string]interface{}) bool {
 	return false
@@ -34,7 +48,14 @@ func (tmi teamMapperImpl) SelectTeam(talkerID string) map[string]interface{} {
 }
 func (tmi teamMapperImpl) SelectTeams(selfID string) []map[string]interface{} {
 	var (
-		sql    = "SELECT tt.id as bindID, t.id, t.name, t.notice,t.avatar FROM team_talker tt LEFT JOIN team t ON tt.teamID = t.id WHERE tt.talkerID =?"
+		sql = `SELECT 
+					tu.id AS bindID, t.id, t.name, t.notice, t.avatar
+				FROM
+					team_user tu
+						LEFT JOIN
+					team t ON tu.teamID = t.id
+				WHERE
+				tu.memberID = ?`
 		result []map[string]interface{}
 	)
 	rows, err0 := tmi.sqlClient.Query(sql, selfID)
@@ -53,8 +74,11 @@ func (tmi teamMapperImpl) SelectTeams(selfID string) []map[string]interface{} {
 }
 
 // NewTeamMapper 新建群组数据映射层对象
-func NewTeamMapper() TeamMapper {
-	return teamMapperImpl{
-		client.SQLClient,
+func NewTeamMapper(mapperName string) TeamMapper {
+	switch mapperName {
+	case "teamMapper":
+		return newTeamMapperImpl()
+	default:
+		return newTeamMapperImpl()
 	}
 }

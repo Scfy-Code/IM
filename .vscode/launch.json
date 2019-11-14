@@ -9,7 +9,7 @@
             "type": "go",
             "request": "launch",
             "mode": "exec",
-            "program": "${workspaceRoot}/bin/IM.exe",
+            "program": "${workspaceRoot}/bin/IM",
             "env": {},
             "args": []
         }

@@ -2,23 +2,26 @@ package client
 
 import (
 	"database/sql"
-	"os"
 
+	"github.com/Scfy-Code/IM/pkg"
+	"github.com/Scfy-Code/IM/pkg/log"
 	_ "github.com/go-sql-driver/mysql" // 只使用初始化方法
 )
 
-// SQLClient sql客户端
-var SQLClient *sql.DB
+var (
+	// SQLClient sql客户端
+	SQLClient *sql.DB
+	logger    = log.NewWarnLogger()
+)
 
-// RegistClient 注册一个信息
-func RegistClient(driverName, dataSourceName string) {
-	db, err0 := sql.Open(driverName, dataSourceName)
+func init() {
+	db, err0 := sql.Open(pkg.APP.DriverName, pkg.APP.DataSourceName)
 	if err0 != nil {
-		os.Exit(1)
+		logger.Fatalf("创建SQL客户端出错！错误信息：%s", err0.Error())
 	}
 	err1 := db.Ping()
 	if err1 != nil {
-		os.Exit(1)
+		logger.Fatalf("连接SQL客户端出错！错误信息：%s", err1.Error())
 	}
 	SQLClient = db
 }

@@ -24,7 +24,7 @@
                 <div class="list tab-content">
                     <div id="friends" class="tab-pane active">
                         {{range .talkerList}}
-                        <div id="{{.bindID}}" class="talker-warn">
+                        <div id="{{.bindID}}" class="talker-outline">
                             <div class="talkerAvatar" onclick="show_talkerInfo('{{.talkerID}}')">
                                 <img class="talkerAvatarImage rounded-circle" src="{{.talkerAvatar}}" alt="">
                                 {{if .status}}
@@ -51,11 +51,11 @@
                             <div class="extend">
                                 <div class="deleteTalker">
                                     <div class="del"></div>
-                                    <div class="del"></div>
                                     <div class="del">
                                         <a class="oi oi-circle-x text-warning" href="javascript:void(0);"
                                             onclick="del_talker('{{.bindID}}')"></a>
                                     </div>
+                                    <div class="del"></div>
                                 </div>
                                 <div class="msgPoint">
                                     <span class="msgNum badge badge-pill badge-danger"></span>
@@ -69,7 +69,7 @@
                     </div>
                     <div id="teams" class="tab-pane fade">
                         {{range .teamList}}
-                        <div id="{{.bindID}}" class="team">
+                        <div id="{{.bindID}}" class="team-inline">
                             <div class="teamAvatar" onclick="show_teamInfo(this)">
                                 <img class="teamAvatarImage rounded-circle" src="{{.teamAvatar}}" alt="">
                             </div>
@@ -92,11 +92,11 @@
                             <div class="extend">
                                 <div class="quitTeam">
                                     <div class="del"></div>
-                                    <div class="del"></div>
                                     <div class="del">
                                         <a class="oi oi-circle-x text-warning" href="javascript:void(0);"
                                             onclick="quit_team('{{.bindID}}')"></a>
                                     </div>
+                                    <div class="del"></div>
                                 </div>
                                 <div class="msgPoint">
                                     <span class="msgNum badge badge-pill badge-danger"></span>
@@ -115,6 +115,31 @@
                     <nav id="talker-list" class="nav nav-tabs">
                         <a class="nav-item nav-link oi oi-home" data-toggle="tab" title="好友列表" href="#home"></a>
                     </nav>
+                </div>
+                <div class="features">
+                    <div class="feature-option">
+                        <nav class="nav nav-tabs" style="font-size: 1.6rem;">
+                            <a class="nav-item nav-link oi oi-chat active" data-toggle="tab" href="#text-content"
+                                title="文本消息"></a>
+                            <a class="nav-item nav-link oi oi-image" data-toggle="tab" href="#image-content"
+                                title="图片消息"></a>
+                            <a class="nav-item nav-link oi oi-paperclip" data-toggle="tab" href="#file-content"
+                                title="附件消息"></a>
+                            <a class="nav-item nav-link oi oi-heart" data-toggle="tab" href="#emoji-content"
+                                title="表情消息"></a>
+                        </nav>
+                    </div>
+                    <input type="password" id="receiver" name="receiver" hidden>
+                    <div class="feature-content tab-content">
+                        <div id="text-content" class="tab-pane active">
+                            <textarea name="text-message" id="textmessage"
+                                style="height:100%;width:100%;resize: none;"></textarea>
+                        </div>
+                        <div id="image-content" class="tab-pane fade"></div>
+                        <div id="file-content" class="tab-pane fade"></div>
+                        <div id="emoji-content" class="tab-pane fade"></div>
+                        <div id="submit-button" onclick="send_message()">发送(Enter)</div>
+                    </div>
                 </div>
             </div>
         </div>
