@@ -56,6 +56,45 @@ html,body{
     border-bottom-right-radius: -0.5rem;
     border-bottom-left-radius: -0.5rem;
 }
+.talker-warn{
+    color: #856404;
+    display: flex;
+    flex-direction: row;
+    background-color: #fff3cd;
+    height: 3.8rem;
+    padding-top: 0.3rem;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #ffeeba;
+    border-bottom-right-radius: -0.5rem;
+    border-bottom-left-radius: -0.5rem;
+}
+.talker-inline{
+    color: #004085;
+    display: flex;
+    flex-direction: row;
+    background-color: #cce5ff;
+    height: 3.8rem;
+    padding-top: 0.3rem;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #b8daff;
+    border-bottom-right-radius: -0.5rem;
+    border-bottom-left-radius: -0.5rem;
+}
+.talker-outline{
+    color: black;
+    display: flex;
+    flex-direction: row;
+    background-color: #d6d8d9;
+    height: 3.8rem;
+    padding-top: 0.3rem;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #c6c8ca;
+    border-bottom-right-radius: -0.5rem;
+    border-bottom-left-radius: -0.5rem;
+}
 .talkerAvatar,.teamAvatar{
    flex: 2.5;
 }
@@ -80,7 +119,6 @@ html,body{
 }
 .talkerSign,.teamNotice{
     flex: 7;
-    color: lightgray;
 }
 .talkerMessage,.teamMessage{
     display: flex;

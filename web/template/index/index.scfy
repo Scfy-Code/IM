@@ -24,7 +24,7 @@
                 <div class="list tab-content">
                     <div id="friends" class="tab-pane active">
                         {{range .talkerList}}
-                        <div id="{{.bindID}}" class="talker">
+                        <div id="{{.bindID}}" class="talker-warn">
                             <div class="talkerAvatar" onclick="show_talkerInfo('{{.talkerID}}')">
                                 <img class="talkerAvatarImage rounded-circle" src="{{.talkerAvatar}}" alt="">
                                 {{if .status}}
@@ -35,9 +35,8 @@
                             </div>
                             <div class="talkerInfo" onclick="ex_talker('{{.talkerID}}')">
                                 <div class="talkerBase">
-                                    <div class="talkerName font-weight-bold">{{.talkerNickName}}</div>
-                                    <div class="talkerSign small">
-                                        {{.talkerSign}}</div>
+                                    <div class="talkerName"><strong>{{.talkerNickName}}</strong></div>
+                                    <div class="talkerSign">{{.talkerSign}}</div>
                                 </div>
                                 <div class="talkerMessage">
                                     {{if .msgContent}}
