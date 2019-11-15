@@ -10,12 +10,14 @@
 <body>
     <div class="view">
         <div class="top bg-primary">
-            <img id="logo" src="/static/images/logo.png">
+            <img id="logo" src="/static/images/logo.png" onclick="index()">
+            <img id="user" src="/static/images/self.png" onclick="user()">
         </div>
         <div class="bottom">
             <div class="left">
                 <div class="listType">
                     <nav class="nav nav-tabs nav-fill">
+                        <a class="nav-item nav-link oi oi-plus" data-toggle="tab" title="" href="#add"></a>
                         <a class="nav-item nav-link oi oi-person active" data-toggle="tab" title="好友列表"
                             href="#friends"></a>
                         <a class="nav-item nav-link oi oi-people" data-toggle="tab" title="群组列表" href="#teams"></a>
@@ -24,16 +26,11 @@
                 <div class="list tab-content">
                     <div id="friends" class="tab-pane active">
                         {{range .talkerList}}
-                        <div id="{{.bindID}}" class="talker-outline">
+                        <div id="{{.bindID}}" class="{{if .status}}talker-inline{{else}}talker-outline{{end}}">
                             <div class="talkerAvatar" onclick="show_talkerInfo('{{.talkerID}}')">
-                                <img class="talkerAvatarImage rounded-circle" src="{{.talkerAvatar}}" alt="">
-                                {{if .status}}
-                                <span class="oi oi-link-intact text-success"></span>
-                                {{else}}
-                                <span class="oi oi-link-broken text-darrk"></span>
-                                {{end}}
+                                <img class="talkerAvatarImage rounded-circle" src="{{.talkerAvatar}}">
                             </div>
-                            <div class="talkerInfo" onclick="ex_talker('{{.talkerID}}')">
+                            <div class="talkerInfo" onclick="ex_talker('{{.bindID}}')">
                                 <div class="talkerBase">
                                     <div class="talkerName"><strong>{{.talkerNickName}}</strong></div>
                                     <div class="talkerSign">{{.talkerSign}}</div>
@@ -51,14 +48,15 @@
                             <div class="extend">
                                 <div class="deleteTalker">
                                     <div class="del"></div>
-                                    <div class="del">
-                                        <a class="oi oi-circle-x text-warning" href="javascript:void(0);"
-                                            onclick="del_talker('{{.bindID}}')"></a>
-                                    </div>
                                     <div class="del"></div>
+                                    <div class="del">
+                                        <a class="oi oi-circle-x" href="javascript:void(0);"
+                                            onclick="del_talker('{{.bindID}}')">
+                                        </a>
+                                    </div>
                                 </div>
                                 <div class="msgPoint">
-                                    <span class="msgNum badge badge-pill badge-danger"></span>
+                                    <span class="msgNum badge badge-pill">99+</span>
                                 </div>
                                 <div class="none">
 
@@ -92,14 +90,15 @@
                             <div class="extend">
                                 <div class="quitTeam">
                                     <div class="del"></div>
-                                    <div class="del">
-                                        <a class="oi oi-circle-x text-warning" href="javascript:void(0);"
-                                            onclick="quit_team('{{.bindID}}')"></a>
-                                    </div>
                                     <div class="del"></div>
+                                    <div class="del">
+                                        <a class="oi oi-circle-x" href="javascript:void(0);"
+                                            onclick="quit_team('{{.bindID}}')">
+                                        </a>
+                                    </div>
                                 </div>
                                 <div class="msgPoint">
-                                    <span class="msgNum badge badge-pill badge-danger"></span>
+                                    <span class="msgNum badge badge-pill">99+</span>
                                 </div>
                                 <div class="none">
 
@@ -111,10 +110,8 @@
                 </div>
             </div>
             <div class="right">
-                <div class="talker-content">
-                    <nav id="talker-list" class="nav nav-tabs">
-                        <a class="nav-item nav-link oi oi-home" data-toggle="tab" title="好友列表" href="#home"></a>
-                    </nav>
+                <div class="message-content">
+
                 </div>
                 <div class="features">
                     <div class="feature-option">
@@ -129,7 +126,7 @@
                                 title="表情消息"></a>
                         </nav>
                     </div>
-                    <input type="password" id="receiver" name="receiver" hidden>
+                    <input type="text" id="receiver" name="receiver" hidden>
                     <div class="feature-content tab-content">
                         <div id="text-content" class="tab-pane active">
                             <textarea name="text-message" id="textmessage"

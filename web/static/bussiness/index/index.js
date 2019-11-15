@@ -1,3 +1,9 @@
+function index() {
+    window.location.href = "/";
+}
+function user() {
+
+}
 //删除用户
 function del_talker(bindID) {
     $.ajax({
@@ -39,18 +45,26 @@ function quit_team(bindID) {
     })
 }
 //切换聊天对象
-function ex_talker(talkerID) {
-    $("#receiver").val(talkerID);
-    $.ajax({
-        url: "",
-        data: {},
-        type: "POST",
-        dataType: "json",
-        async: false,
-        success: function (data) {
-        }
-    })
-    $("#talker-list").append('<a class="nav-item nav-link" data-toggle="tab" title="好友列表" href = ""></a>');
+function ex_talker(bindID) {
+    var bd = $("#receiver").val()
+    if (bd == "") {
+
+    } else {
+        $("#" + bd).attr("class", "talker-inline");
+    }
+    $("#receiver").val(bindID);
+    $("#" + bindID).attr("class", "talker-selected");
+}
+//切换聊天对象
+function ex_team(bindID) {
+    var bd = $("#receiver").val()
+    if (bd == "") {
+
+    } else {
+        $("#" + bd).attr("class", "team-inline");
+    }
+    $("#receiver").val(bindID);
+    $("#" + bindID).attr("class", "team-selected");
 }
 //展示聊天对象信息
 function show_talkerInfo(obj) {
