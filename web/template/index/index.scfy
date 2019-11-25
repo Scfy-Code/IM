@@ -17,7 +17,6 @@
             <div class="left">
                 <div class="listType">
                     <nav class="nav nav-tabs nav-fill">
-                        <a class="nav-item nav-link oi oi-plus" data-toggle="tab" title="" href="#add"></a>
                         <a class="nav-item nav-link oi oi-person active" data-toggle="tab" title="好友列表"
                             href="#friends"></a>
                         <a class="nav-item nav-link oi oi-people" data-toggle="tab" title="群组列表" href="#teams"></a>
