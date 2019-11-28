@@ -1,32 +1,23 @@
 package main
 
-import "fmt"
+import (
+	"net/http"
+
+	"github.com/Scfy-Code/IM/app/router"
+	"github.com/Scfy-Code/IM/app/router/talker"
+	"github.com/Scfy-Code/IM/app/router/team"
+	"github.com/Scfy-Code/IM/sys"
+)
 
 func main() {
-	add(12, 13)
-	fmt.Println("输出")
-	// universalHandler := app.NewUniversalHandler()
-	// universalHandler.Handle("", nil)
-	// universalHandler.AuthHandle("", nil)
-	// server := &http.Server{
-	// 	Addr:     ":8088",
-	// 	ErrorLog: mylog.NewWarnLogger(),
-	// 	Handler:  universalHandler,
-	// }
-	// server.ListenAndServe()
-}
-func add(a, b int) {
-	return
-	fmt.Println(a + b)
-}
-func init() {
-	// http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir(app.APP.StaticDir))))
-	// auther.Handle("/", router.NewIndexTemplateRouter(), authen.AuthMethod)
-	// http.Handle("/login.scfy", router.NewLoginRouter())
-	// http.Handle("/regist.scfy", router.NewRegistRouter())
-	// http.Handle("/login.action", router.NewLoginRouter())
-	// http.Handle("/regist.action", router.NewRegistRouter())
-	// auther.Handle("/delete_talker.action", talker.NewDeleteTalkerRouter(), authen.AuthMethod)
-	// auther.Handle("/select_talkerInfo.action", talker.NewSelectTalkerRouter(), authen.AuthMethod)
-	// auther.Handle("/quit_team.action", team.NewQuitTeamRouter(), authen.AuthMethod)
+	sys.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir(sys.APP.StaticDir))))
+	sys.AuthHandle("/", router.NewIndexTemplateRouter())
+	sys.Handle("/login.scfy", router.NewloginTemplate())
+	sys.Handle("/login.action", router.NewLoginRouter())
+	sys.Handle("/regist.scfy", router.NewRegistRouter())
+	sys.Handle("/regist.action", router.NewRegistRouter())
+	sys.AuthHandle("/delete_talker.action", talker.NewDeleteTalkerRouter())
+	sys.AuthHandle("/select_talkerInfo.action", talker.NewSelectTalkerRouter())
+	sys.AuthHandle("/quit_team.action", team.NewQuitTeamRouter())
+	sys.ListenAndServe()
 }

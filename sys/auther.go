@@ -10,7 +10,14 @@ type authenticator struct {
 }
 
 func (a authenticator) Auth(w http.ResponseWriter, r *http.Request) bool {
-	return false
+	cookie, err := r.Cookie("SESSIONID")
+	if err != nil {
+		WarnLogger.Println(err.Error())
+		return false
+	}
+	sessionID := cookie.Value
+	WarnLogger.Println(sessionID)
+	return true
 }
 
 // NewAuthenticator 创建认证器

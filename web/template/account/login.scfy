@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{template "head"}}
+    <title>登录</title>
+</head>
+
+<body class="bg-primary">
+    <div></div>
+    {{template "foot"}}
+</body>
+
+</html>

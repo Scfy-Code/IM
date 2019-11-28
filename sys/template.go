@@ -81,7 +81,7 @@ func analysisTemplateDirs(templateDirs ...string) []string {
 	for index0 := range templateDirs {
 		files, err0 := ioutil.ReadDir(templateDirs[index0])
 		if err0 != nil {
-			logger.Printf("读取模板目录出错！错误信息：%s", err0.Error())
+			WarnLogger.Printf("读取模板目录出错！错误信息：%s", err0.Error())
 			continue
 		}
 		for index1 := range files {

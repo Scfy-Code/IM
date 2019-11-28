@@ -23,6 +23,7 @@ func init() {
 }
 
 type application struct {
+	Port           string                  `json:"port"`           //监听端口
 	RuntimeEnv     string                  `json:"runtimeEnv"`     //运行环境
 	TemplateDir    string                  `json:"templateDir"`    //视图目录
 	StaticDir      string                  `json:"staticDir"`      //静态文件目录
