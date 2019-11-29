@@ -1,26 +1,52 @@
 package sys
 
-import "net/http"
+import (
+	"net/http"
+)
 
-// Authenticator 认证器接口
-type Authenticator interface {
-	Auth(w http.ResponseWriter, r *http.Request) bool
-}
-type authenticator struct {
+// autherHandler 通用处理器
+type autherHandler struct {
+	authenList map[string]func(http.ResponseWriter, *http.Request)
 }
 
-func (a authenticator) Auth(w http.ResponseWriter, r *http.Request) bool {
-	cookie, err := r.Cookie("SESSIONID")
-	if err != nil {
-		WarnLogger.Println(err.Error())
-		return false
+// newautherHandler 创建通用处理器
+func newautherHandler() *autherHandler {
+	return &autherHandler{
+		make(map[string]func(http.ResponseWriter, *http.Request)),
 	}
-	sessionID := cookie.Value
-	WarnLogger.Println(sessionID)
-	return true
 }
 
-// NewAuthenticator 创建认证器
-func NewAuthenticator() Authenticator {
-	return &authenticator{}
+// authHandle 注册需要认证的处理器
+func (ush autherHandler) authHandle(pattern string, handler http.Handler) {
+	http.Handle(pattern, handler)
+	ush.authenList[pattern] = handler.ServeHTTP
+}
+
+// handle 注册需要认证的处理器
+func (ush autherHandler) handle(pattern string, handler http.Handler) {
+	http.Handle(pattern, handler)
+}
+
+func (ush autherHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	handler, pattern := http.DefaultServeMux.Handler(r)
+	if handleFunc, ok := ush.authenList[pattern]; ok {
+		handleFunc(w, r)
+	} else {
+		handler.ServeHTTP(w, r)
+	}
+}
+
+// Handle 注册路由
+func Handle(pattern string, handler http.Handler) {
+	universalHandler.handle(pattern, handler)
+}
+
+// AuthHandle 注册需验证的路由
+func AuthHandle(pattern string, handler http.Handler) {
+	universalHandler.authHandle(pattern, handler)
+}
+
+// ListenAndServe 端口监听
+func ListenAndServe() {
+	http.ListenAndServe(":8088", universalHandler)
 }

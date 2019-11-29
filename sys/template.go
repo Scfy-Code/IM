@@ -6,37 +6,6 @@ import (
 	"strings"
 )
 
-// newTemplate 创建一个视图解析器
-func newTemplate() Template {
-	switch APP.RuntimeEnv {
-	case "PRO":
-		return &templatePRO{
-			analysisTemplateFiles(
-				analysisTemplateDirs(
-					APP.TemplateDir,
-				)...,
-			),
-		}
-	case "DEV":
-		return &templateDEV{
-			analysisTemplateDirs(
-				APP.TemplateDir,
-			),
-		}
-	default:
-		return &templatePRO{
-			analysisTemplateFiles(
-				analysisTemplateDirs(
-					APP.TemplateDir,
-				)...,
-			),
-		}
-	}
-}
-func init() {
-	temp = newTemplate()
-}
-
 // ReturnTemplate 返回与名称对应的模板
 func ReturnTemplate(templateName string) *template.Template {
 	return temp.ReturnTemplate(templateName)
