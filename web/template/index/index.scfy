@@ -17,9 +17,10 @@
             <div class="left">
                 <div class="listType">
                     <nav class="nav nav-tabs nav-fill">
-                        <a class="nav-item nav-link oi oi-person active" data-toggle="tab" title="好友列表"
-                            href="#friends"></a>
-                        <a class="nav-item nav-link oi oi-people" data-toggle="tab" title="群组列表" href="#teams"></a>
+                        <a class="nav-item nav-link active" data-toggle="tab" title="好友列表" href="#friends">好友列表
+                        </a>
+                        <a class="nav-item nav-link " data-toggle="tab" title="群组列表" href="#teams">用户列表
+                        </a>
                     </nav>
                 </div>
                 <div class="list tab-content">
@@ -116,13 +117,13 @@
                     <div class="feature-option">
                         <nav class="nav nav-tabs" style="font-size: 1.6rem;">
                             <a class="nav-item nav-link oi oi-chat active" data-toggle="tab" href="#text-content"
-                                title="文本消息"></a>
+                                title="文本消息">文本消息</a>
                             <a class="nav-item nav-link oi oi-image" data-toggle="tab" href="#image-content"
-                                title="图片消息"></a>
+                                title="图片消息">图片消息</a>
                             <a class="nav-item nav-link oi oi-paperclip" data-toggle="tab" href="#file-content"
-                                title="附件消息"></a>
+                                title="文件消息">文件消息</a>
                             <a class="nav-item nav-link oi oi-heart" data-toggle="tab" href="#emoji-content"
-                                title="表情消息"></a>
+                                title="表情消息">表情消息</a>
                         </nav>
                     </div>
                     <input type="text" id="receiver" name="receiver" hidden>
