@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"github.com/Scfy-Code/IM/app/router"
+	"github.com/Scfy-Code/IM/app/account/router"
 	"github.com/Scfy-Code/IM/sys"
 )
 
@@ -13,5 +13,5 @@ func main() {
 	sys.Handle("/login.action", router.NewLoginRouter())
 	sys.Handle("/regist.scfy", router.NewRegistRouter())
 	sys.Handle("/regist.action", router.NewRegistRouter())
-	sys.ListenAndServe(":8088")
+	sys.ListenAndServe(":8086")
 }

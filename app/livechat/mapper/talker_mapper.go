@@ -1,8 +1,6 @@
 package mapper
 
 import (
-	"database/sql"
-
 	"github.com/Scfy-Code/IM/app/livechat/entity"
 	"github.com/Scfy-Code/IM/sys"
 )
@@ -16,13 +14,10 @@ type TalkerMapper interface {
 	SelectTalkers(selfID string) []map[string]interface{}
 }
 type talkerMapperImpl struct {
-	sqlClient *sql.DB
 }
 
 func newTalkerMapperImpl() TalkerMapper {
-	return &talkerMapperImpl{
-		sys.SQLClient,
-	}
+	return &talkerMapperImpl{}
 }
 
 func (tmi talkerMapperImpl) CreateTalker(talkerID string) bool {
@@ -32,7 +27,7 @@ func (tmi talkerMapperImpl) DeleteTalker(bindID string) bool {
 	var (
 		sql = "DELETE FROM user_user WHERE id = ?"
 	)
-	stmt, err0 := tmi.sqlClient.Prepare(sql)
+	stmt, err0 := sys.GetSQLClient("US").Prepare(sql)
 	if err0 != nil {
 		return false
 	}
@@ -50,7 +45,7 @@ func (tmi talkerMapperImpl) SelectTalker(TalkerID string) map[string]interface{}
 		sql    = ""
 		result map[string]interface{}
 	)
-	rows, err0 := tmi.sqlClient.Query(sql, TalkerID, TalkerID)
+	rows, err0 := sys.GetSQLClient("US").Query(sql, TalkerID, TalkerID)
 	if err0 != nil {
 
 	}
@@ -99,7 +94,7 @@ func (tmi talkerMapperImpl) SelectTalkers(selfID string) []map[string]interface{
 					uu.receiverID=?`
 		result []map[string]interface{}
 	)
-	rows, err0 := tmi.sqlClient.Query(sql, selfID, selfID)
+	rows, err0 := sys.GetSQLClient("US").Query(sql, selfID, selfID)
 	if err0 != nil {
 
 	}

@@ -15,8 +15,7 @@ import (
 )
 
 var (
-	// SQLClient sql客户端
-	SQLClient *sql.DB
+	sqlClients map[string]*sql.DB = make(map[string]*sql.DB)
 	// RedisClient redis客户端
 	RedisClient redis.UniversalClient
 	// InfoLogger 常规日志对象
@@ -68,14 +67,16 @@ func init() {
 			),
 		}
 	}
-	db, err0 := sql.Open(APP.DriverName, APP.DataSourceName)
-	if err0 != nil {
-		WarnLogger.Fatalf("创建SQL客户端出错！错误信息：%s", err0.Error())
+	for index, config := range APP.SQLConfig {
+		db, err0 := sql.Open(config.DriverName, config.DataSource)
+		if err0 != nil {
+			WarnLogger.Fatalf("创建第%d个数据源出错！错误信息：%s", index, err0.Error())
+		}
+		err1 := db.Ping()
+		if err1 != nil {
+			WarnLogger.Fatalf("连接第%d个数据源出错!错误信息：%s", index, err1.Error())
+		}
+		sqlClients[config.ClientAlias] = db
 	}
-	err1 := db.Ping()
-	if err1 != nil {
-		WarnLogger.Fatalf("连接SQL客户端出错！错误信息：%s", err1.Error())
-	}
-	SQLClient = db
 	RedisClient = redis.NewUniversalClient(APP.RedisOptions)
 }

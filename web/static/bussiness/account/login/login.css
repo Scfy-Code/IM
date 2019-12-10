@@ -7,4 +7,14 @@ html{
 body{
     height: 100%;
     width: 100%;
+    font-size: 1.4rem;
+}
+#login{
+    position: absolute;
+    width: 38rem;
+    height: 30rem;
+    top: 50%;
+    left: 50%;
+    margin: -19rem 0 0 -15rem;
+    padding: 3rem 2rem 0 2rem;
 }

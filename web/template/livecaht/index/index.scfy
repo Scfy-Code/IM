@@ -3,7 +3,7 @@
 
 <head>
     {{template "head"}}
-    <link type="text/css" rel="stylesheet" href="/static/bussiness/index/index.css">
+    <link type="text/css" rel="stylesheet" href="/static/bussiness/livechat/index/index.css">
     <title>巨疑</title>
 </head>
 
@@ -142,7 +142,7 @@
         </div>
     </div>
     {{template "foot"}}
-    <script type="text/javascript" src="/static/bussiness/index/index.js"></script>
+    <script type="text/javascript" src="/static/bussiness/livechat/index/index.js"></script>
 </body>
 
 </html>

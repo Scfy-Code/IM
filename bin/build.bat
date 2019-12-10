@@ -1,4 +1,4 @@
 cd ../cmd
-go build -o ../bin/IM ./IM.go
+go build -o ../bin/livechat ./livechat
+go build -o ../bin/account  ./account
 cd ../bin
-REM IM.exe

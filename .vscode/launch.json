@@ -5,11 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch",
+            "name": "LiveChat",
             "type": "go",
             "request": "launch",
             "mode": "exec",
-            "program": "${workspaceRoot}/bin/IM",
+            "program": "${workspaceRoot}/bin/livechat",
+            "env": {},
+            "args": []
+        },
+        {
+            "name": "Account",
+            "type": "go",
+            "request": "launch",
+            "mode": "exec",
+            "program": "${workspaceRoot}/bin/account",
             "env": {},
             "args": []
         }
