@@ -47,6 +47,6 @@ func AuthHandle(pattern string, handler http.Handler) {
 }
 
 // ListenAndServe 端口监听
-func ListenAndServe() {
-	http.ListenAndServe(":8088", universalHandler)
+func ListenAndServe(port string) {
+	http.ListenAndServe(port, universalHandler)
 }

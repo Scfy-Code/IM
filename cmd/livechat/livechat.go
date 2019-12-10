@@ -19,5 +19,5 @@ func main() {
 	sys.AuthHandle("/delete_talker.action", talker.NewDeleteTalkerRouter())
 	sys.AuthHandle("/select_talkerInfo.action", talker.NewSelectTalkerRouter())
 	sys.AuthHandle("/quit_team.action", team.NewQuitTeamRouter())
-	sys.ListenAndServe()
+	sys.ListenAndServe(":8088")
 }

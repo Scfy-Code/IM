@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/Scfy-Code/IM/app/service"
+	"github.com/Scfy-Code/IM/app/livechat/service"
 )
 
 type deleteTalker struct {

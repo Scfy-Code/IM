@@ -1,6 +1,6 @@
 package service
 
-import "github.com/Scfy-Code/IM/app/mapper"
+import "github.com/Scfy-Code/IM/app/livechat/mapper"
 
 // TeamService 群组数据层服务接口
 type TeamService interface {

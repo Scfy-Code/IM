@@ -3,7 +3,7 @@ package talker
 import (
 	"net/http"
 
-	"github.com/Scfy-Code/IM/app/service"
+	"github.com/Scfy-Code/IM/app/livechat/service"
 )
 
 type selectTalkerList struct {

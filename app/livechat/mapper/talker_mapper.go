@@ -3,7 +3,7 @@ package mapper
 import (
 	"database/sql"
 
-	"github.com/Scfy-Code/IM/app/entity"
+	"github.com/Scfy-Code/IM/app/livechat/entity"
 	"github.com/Scfy-Code/IM/sys"
 )
 

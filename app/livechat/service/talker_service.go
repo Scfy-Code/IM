@@ -1,6 +1,6 @@
 package service
 
-import "github.com/Scfy-Code/IM/app/mapper"
+import "github.com/Scfy-Code/IM/app/livechat/mapper"
 
 // TalkerService 好友数据层服务接口
 type TalkerService interface {

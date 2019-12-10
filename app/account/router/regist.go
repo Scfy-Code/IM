@@ -1,6 +1,12 @@
 package router
 
 import "net/http"
+type registTemplate struct{
+
+}
+func (rt registTemplate) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+
+}
 
 type registRouter struct {
 }
