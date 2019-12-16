@@ -9,8 +9,8 @@ import (
 )
 
 const (
-	emailReg string = "^[a-zA-Z]{1}[a-zA-Z0-9]{9,17}@[(163.com)|(gmail.com)|(qq.com)]$"
-	password string = "^[a-zA-Z]{1}[a-zA-Z0-9]{7,15}$"
+	emailReg    string = "^[a-zA-Z0-9]{6,32}@[(163.com)|(gmail.com)|(qq.com)]$"
+	passwordReg string = "^[a-zA-Z]{1}([a-zA-Z0-9]){7,15}$"
 )
 
 type loginTemplate struct {
@@ -22,7 +22,7 @@ func NewloginTemplate() http.Handler {
 }
 func (lr loginTemplate) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
-		var regs map[string]string = map[string]string{"email": emailReg, "password": password, "action": "/login.action"}
+		var regs map[string]string = map[string]string{"email": emailReg, "password": passwordReg, "action": "/login.action"}
 		sys.ReturnTemplate("login.scfy").Execute(w, regs)
 	}
 }
@@ -33,18 +33,21 @@ type loginRouter struct {
 
 // NewLoginRouter 创建登录请求路由
 func NewLoginRouter() http.Handler {
-	return loginRouter{}
+	return loginRouter{
+		service.NewAccountService(),
+	}
 }
 func (lr loginRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		var email string = r.PostFormValue("email")
 		var password string = r.PostFormValue("password")
 		flag0, err0 := regexp.MatchString(emailReg, email)
-		flag1, err1 := regexp.MatchString(password, password)
+		flag1, err1 := regexp.MatchString(passwordReg, password)
 		if err0 != nil || err1 != nil {
 			sys.ReturnTemplate("login.scfy").Execute(w, nil)
 			return
 		}
+		sys.InfoLogger.Println(flag0, flag1)
 		if flag0 && flag1 {
 			lr.accountService.SelectAccount(email, password)
 		}
