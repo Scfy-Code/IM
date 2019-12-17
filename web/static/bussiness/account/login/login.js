@@ -1,6 +1,6 @@
 function checkEmail(obj, pat) {
     var email = $(obj).val();
-    if (pat.search(email)) {
+    if (pat.test(email)) {
         $(obj).removeClass("is-invalid");
         $(obj).addClass("is-valid");
         $(obj).next().removeClass("invalid-feedback").addClass("valid-feedback").text("验证通过");
@@ -14,7 +14,7 @@ function checkEmail(obj, pat) {
 }
 function checkPassword(obj, pat) {
     var password = $(obj).val();
-    if (pat.search(password)) {
+    if (pat.test(password)) {
         $(obj).removeClass("is-invalid");
         $(obj).addClass("is-valid");
         $(obj).next().removeClass("invalid-feedback").removeClass("valid-feedback").addClass("valid-feedback").text("验证通过");

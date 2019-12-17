@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cn">
 
 <head>
     {{template "head"}}
@@ -9,21 +9,21 @@
 
 <body>
     <div id="login" class="bg-light">
-        <form id="loginForm" action="{{.action}}" method="post" onsubmit="return vaild('{{.email}}','{{.password}}')">
+        <form id="loginForm" action="{{.action}}" method="post" onsubmit="return vaild(/^$/,/^$/)">
             <h3 class="text-primary text-center">用户登录</h3>
             <div class="form-group mb-4 mt-4">
                 <input class="form-control-lg form-control" type="email" id="email" name="email" placeholder="邮箱地址"
-                    onblur="checkEmail(this,'{{.email}}')" required>
+                    onblur="checkEmail(this,/^$/)" required>
                 <div class="invalid-feedback" id="emailMsg"></div>
             </div>
             <div class="form-group mb-4">
                 <input class="form-control-lg form-control" type="password" id="password" name="password"
-                    placeholder="登陆密码" onblur="checkPassword(this,'{{.password}}')" required>
+                    placeholder="登陆密码" onblur="checkPassword(this,/^$/)" required>
                 <div class="invalid-feedback" id="passwordMsg"></div>
             </div>
             <button type="submit" class="btn btn-block btn-primary btn-lg mb-4">登录</button>
-            <a class="float-right" href="/reset.scfy">找回密码</a>
             <a class="float-left" href="/regist.scfy">注册</a>
+            <a class="float-right" href="/reset.scfy">找回密码</a>
         </form>
     </div>
     {{template "foot"}}

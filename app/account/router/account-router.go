@@ -2,30 +2,9 @@ package router
 
 import (
 	"net/http"
-	"regexp"
 
 	"github.com/Scfy-Code/IM/app/account/service"
-	"github.com/Scfy-Code/IM/sys"
 )
-
-const (
-	emailReg    string = "^[a-zA-Z0-9]{6,32}@[(163.com)|(gmail.com)|(qq.com)]$"
-	passwordReg string = "^[a-zA-Z]{1}([a-zA-Z0-9]){7,15}$"
-)
-
-type loginTemplate struct {
-}
-
-// NewloginTemplate 创建登录页面路由
-func NewloginTemplate() http.Handler {
-	return loginTemplate{}
-}
-func (lr loginTemplate) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "GET" {
-		var regs map[string]string = map[string]string{"email": emailReg, "password": passwordReg, "action": "/login.action"}
-		sys.ReturnTemplate("login.scfy").Execute(w, regs)
-	}
-}
 
 type loginRouter struct {
 	accountService service.AccountService
@@ -39,37 +18,31 @@ func NewLoginRouter() http.Handler {
 }
 func (lr loginRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
-		var email string = r.PostFormValue("email")
-		var password string = r.PostFormValue("password")
-		flag0, err0 := regexp.MatchString(emailReg, email)
-		flag1, err1 := regexp.MatchString(passwordReg, password)
-		if err0 != nil || err1 != nil {
-			sys.ReturnTemplate("login.scfy").Execute(w, nil)
-			return
-		}
-		sys.InfoLogger.Println(flag0, flag1)
-		if flag0 && flag1 {
-			lr.accountService.SelectAccount(email, password)
-		}
-	}
-}
-
-type registTemplate struct {
-}
-
-func (rt registTemplate) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "GET" {
-		sys.ReturnTemplate("regist.scfy").Execute(w, nil)
+		var (
+			email    string = r.PostFormValue("email")
+			password string = r.PostFormValue("password")
+		)
+		lr.accountService.SelectAccount(email, password)
 	}
 }
 
 type registRouter struct {
+	accountService service.AccountService
 }
 
 // NewRegistRouter 创建注册路由
 func NewRegistRouter() http.Handler {
-	return registRouter{}
+	return registRouter{
+		service.NewAccountService(),
+	}
 }
 func (rr registRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-
+	if r.Method == "POST" {
+		var (
+			email     string = r.PostFormValue("email")
+			password  string = r.PostFormValue("password")
+			possword0 string = r.PostFormValue("password0")
+		)
+		rr.accountService.InsertAccount(email, password, possword0)
+	}
 }

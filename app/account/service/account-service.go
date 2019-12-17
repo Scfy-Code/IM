@@ -16,7 +16,19 @@ func NewAccountService() AccountService {
 	}
 }
 func (as accountService) SelectAccount(email, password string) bool {
-	account := as.accountMapper.SelectAccount(email, password)
-	sys.InfoLogger.Println(account)
+	account, err := as.accountMapper.SelectAccount(email, password)
+	sys.WarnLogger.Println(account, err.Error())
+	return false
+}
+func (as accountService) InsertAccount(email, password, password0 string) bool {
+	// var (
+	// 	account entity.Account = entity.Account{
+	// 		time.Now().UnixNano(), email, password, "", "", "",
+	// 	}
+	// )
+	//result := as.accountMapper.InsertAccount(account)
+	// if result == 1 {
+	// 	return true
+	// }
 	return false
 }

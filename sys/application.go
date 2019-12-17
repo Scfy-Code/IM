@@ -16,6 +16,7 @@ type application struct {
 	SQLConfig    []sqlConfig             `json:"dataSources"`  //数据源配置信息
 	RedisOptions *redis.UniversalOptions `json:"redisOptions"` //缓存配置
 }
+
 type sqlConfig struct {
 	ClientAlias string `json:"clientAlias"` //连接别名
 	DriverName  string `json:"driverName"`  //数据库名称
@@ -28,5 +29,6 @@ func GetSQLClient(alias string) *sql.DB {
 	if !ok {
 		panic("指定名称的数据源不存在")
 	}
+	InfoLogger.Printf("获取名称为%s的数据源", alias)
 	return client
 }

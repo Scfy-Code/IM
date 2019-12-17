@@ -76,6 +76,7 @@ func init() {
 		if err1 != nil {
 			WarnLogger.Fatalf("连接第%d个数据源出错!错误信息：%s", index, err1.Error())
 		}
+		InfoLogger.Printf("创建数据源%s成功！连接信息：%s", config.ClientAlias, config.DataSource)
 		sqlClients[config.ClientAlias] = db
 	}
 	RedisClient = redis.NewUniversalClient(APP.RedisOptions)
