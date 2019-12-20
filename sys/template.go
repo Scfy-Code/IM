@@ -1,38 +1,20 @@
 package sys
 
 import (
+	"fmt"
 	"html/template"
 	"io/ioutil"
 	"strings"
 )
 
-// ReturnTemplate 返回与名称对应的模板
-func ReturnTemplate(templateName string) *template.Template {
-	return temp.ReturnTemplate(templateName)
-}
-
-// Template 视图接口
-type Template interface {
-	// 返回与名称对应的模板
-	ReturnTemplate(templateName string) *template.Template
-}
-
-// templatePRO 生产环境视图模板
-type templatePRO struct {
+var (
 	templates *template.Template
-}
+)
 
-func (temp templatePRO) ReturnTemplate(templateName string) *template.Template {
-	return temp.templates.Lookup(templateName)
-}
-
-// templateDEV 开发环境视图模板
-type templateDEV struct {
-	templateFiles []string
-}
-
-func (temp templateDEV) ReturnTemplate(templateName string) *template.Template {
-	return analysisTemplateFiles(temp.templateFiles...).Lookup(templateName)
+// ReturnTemplate 根据名称回传模板
+func ReturnTemplate(templateName string) *template.Template {
+	templates = analysisTemplateFiles(analysisTemplateDirs("../web/template")...)
+	return templates.Lookup(templateName)
 }
 
 // analysisTemplateFiles 解析模板
@@ -50,7 +32,7 @@ func analysisTemplateDirs(templateDirs ...string) []string {
 	for index0 := range templateDirs {
 		files, err0 := ioutil.ReadDir(templateDirs[index0])
 		if err0 != nil {
-			WarnLogger.Printf("读取模板目录出错！错误信息：%s", err0.Error())
+			fmt.Printf("读取模板目录出错！错误信息：%s", err0.Error())
 			continue
 		}
 		for index1 := range files {
@@ -66,4 +48,7 @@ func analysisTemplateDirs(templateDirs ...string) []string {
 		}
 	}
 	return templateFiles
+}
+func init() {
+	templates = analysisTemplateFiles(analysisTemplateDirs("../web/template")...)
 }

@@ -1,8 +1,9 @@
 package service
 
 import (
+	"fmt"
+
 	"github.com/Scfy-Code/IM/app/account/mapper"
-	"github.com/Scfy-Code/IM/sys"
 )
 
 type accountService struct {
@@ -17,8 +18,12 @@ func NewAccountService() AccountService {
 }
 func (as accountService) SelectAccount(email, password string) bool {
 	account, err := as.accountMapper.SelectAccount(email, password)
-	sys.WarnLogger.Println(account, err.Error())
-	return false
+	if err != nil {
+		fmt.Println(err.Error())
+		return false
+	}
+	fmt.Println(account)
+	return true
 }
 func (as accountService) InsertAccount(email, password, password0 string) bool {
 	// var (

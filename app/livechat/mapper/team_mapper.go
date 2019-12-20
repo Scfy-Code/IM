@@ -25,7 +25,7 @@ func (tmi teamMapperImpl) CreateTeam(teamID string) bool {
 }
 func (tmi teamMapperImpl) DeleteTeam(bindID string) bool {
 	var sql = "delete from team_user where id = ?"
-	stmt, err0 := sys.GetSQLClient("US").Prepare(sql)
+	stmt, err0 := sys.ReturnSQLClient("US").Prepare(sql)
 	if err0 != nil {
 		return false
 	}
@@ -53,7 +53,7 @@ func (tmi teamMapperImpl) SelectTeams(selfID string) []map[string]interface{} {
 				tu.memberID = ?`
 		result []map[string]interface{}
 	)
-	rows, err0 := sys.GetSQLClient("US").Query(sql, selfID)
+	rows, err0 := sys.ReturnSQLClient("US").Query(sql, selfID)
 	if err0 != nil {
 
 	}

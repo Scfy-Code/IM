@@ -19,3 +19,8 @@ body{
     margin: -19rem 0 0 -15rem;
     padding: 3rem 2rem 0 2rem;
 }
+#msg{
+    color: #dc3545;
+    display: block;
+    text-align: center;
+}

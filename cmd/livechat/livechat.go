@@ -9,11 +9,21 @@ import (
 	"github.com/Scfy-Code/IM/sys"
 )
 
+var (
+	app *http.Server
+)
+
+func init() {
+	app = &http.Server{
+		Addr:    ":8088",
+		Handler: sys.UniversalHandler,
+	}
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("../web/static"))))
+}
 func main() {
-	sys.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir(sys.APP.StaticDir))))
-	sys.AuthHandle("/", router.NewIndexTemplateRouter())
-	sys.AuthHandle("/delete_talker.action", talker.NewDeleteTalkerRouter())
-	sys.AuthHandle("/select_talkerInfo.action", talker.NewSelectTalkerRouter())
-	sys.AuthHandle("/quit_team.action", team.NewQuitTeamRouter())
-	sys.ListenAndServe(":8088")
+	sys.UniversalHandler.Handle("/", router.NewIndexTemplateRouter())
+	sys.UniversalHandler.Handle("/delete_talker.action", talker.NewDeleteTalkerRouter())
+	sys.UniversalHandler.Handle("/select_talkerInfo.action", talker.NewSelectTalkerRouter())
+	sys.UniversalHandler.Handle("/quit_team.action", team.NewQuitTeamRouter())
+	app.ListenAndServe()
 }

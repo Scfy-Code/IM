@@ -15,7 +15,7 @@ func NewloginTemplate() http.Handler {
 }
 func (lr loginTemplate) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
-		var data map[string]string = map[string]string{"action": "/login.action"}
+		var data map[string]string = map[string]string{"action": "/login.action", "msg": ""}
 		sys.ReturnTemplate("login.scfy").Execute(w, data)
 	}
 }

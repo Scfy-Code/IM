@@ -1,28 +1,24 @@
-function checkEmail(obj, pat) {
-    var email = $(obj).val();
+function checkEmail(pat) {
+    var email = $("#email").val();
     if (pat.test(email)) {
-        $(obj).removeClass("is-invalid");
-        $(obj).addClass("is-valid");
-        $(obj).next().removeClass("invalid-feedback").addClass("valid-feedback").text("验证通过");
+        $("#email").addClass("is-valid").removeClass("is-invalid");
+        $("#emailMsg").removeClass("invalid-feedback").addClass("valid-feedback").text("验证通过");
         return true;
     } else {
-        $(obj).removeClass("is-valid");
-        $(obj).addClass("is-invalid");
-        $(obj).next().removeClass("valid-feedback").addClass("invalid-feedback").text("请输入有效的邮箱");
+        $("#email").addClass("is-invalid").removeClass("is-valid");
+        $("#emailMsg").removeClass("valid-feedback").addClass("invalid-feedback").text("请输入有效的邮箱");
         return false;
     }
 }
-function checkPassword(obj, pat) {
-    var password = $(obj).val();
+function checkPassword(pat) {
+    var password = $("#password").val();
     if (pat.test(password)) {
-        $(obj).removeClass("is-invalid");
-        $(obj).addClass("is-valid");
-        $(obj).next().removeClass("invalid-feedback").removeClass("valid-feedback").addClass("valid-feedback").text("验证通过");
+        $("#password").addClass("is-valid").removeClass("is-invalid");
+        $("#passwordMsg").removeClass("invalid-feedback").removeClass("valid-feedback").addClass("valid-feedback").text("验证通过");
         return true;
     } else {
-        $(obj).removeClass("is-valid");
-        $(obj).addClass("is-invalid");
-        $(obj).next().removeClass("valid-feedback").addClass("invalid-feedback").text("请输入有效的密码");
+        $("#password").addClass("is-invalid").removeClass("is-valid");
+        $("#passwordMsg").removeClass("valid-feedback").addClass("invalid-feedback").text("请输入有效的密码");
         return false;
     }
 }

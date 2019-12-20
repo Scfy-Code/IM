@@ -4,49 +4,31 @@ import (
 	"net/http"
 )
 
-// autherHandler 通用处理器
-type autherHandler struct {
-	authenList map[string]func(http.ResponseWriter, *http.Request)
-}
+var (
+	// UniversalHandler 通用处理器
+	UniversalHandler *universalHandler
+	urls             map[string]string
+)
 
-// newautherHandler 创建通用处理器
-func newautherHandler() *autherHandler {
-	return &autherHandler{
-		make(map[string]func(http.ResponseWriter, *http.Request)),
+func init() {
+	UniversalHandler = &universalHandler{
+		http.DefaultServeMux,
 	}
 }
 
-// authHandle 注册需要认证的处理器
-func (ush autherHandler) authHandle(pattern string, handler http.Handler) {
-	http.Handle(pattern, handler)
-	ush.authenList[pattern] = handler.ServeHTTP
+type universalHandler struct {
+	serverMux *http.ServeMux
 }
 
-// handle 注册需要认证的处理器
-func (ush autherHandler) handle(pattern string, handler http.Handler) {
-	http.Handle(pattern, handler)
-}
+func (ush *universalHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	handler, pattern := ush.serverMux.Handler(r)
+	if _, ok := urls[pattern]; ok {
 
-func (ush autherHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	handler, pattern := http.DefaultServeMux.Handler(r)
-	if handleFunc, ok := ush.authenList[pattern]; ok {
-		handleFunc(w, r)
-	} else {
-		handler.ServeHTTP(w, r)
+		return
 	}
+	handler.ServeHTTP(w, r)
 }
-
-// Handle 注册路由
-func Handle(pattern string, handler http.Handler) {
-	universalHandler.handle(pattern, handler)
-}
-
-// AuthHandle 注册需验证的路由
-func AuthHandle(pattern string, handler http.Handler) {
-	universalHandler.authHandle(pattern, handler)
-}
-
-// ListenAndServe 端口监听
-func ListenAndServe(port string) {
-	http.ListenAndServe(port, universalHandler)
+func (ush *universalHandler) Handle(pattern string, handler http.Handler) {
+	http.Handle(pattern, handler)
+	urls[pattern] = ""
 }

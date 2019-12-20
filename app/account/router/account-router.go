@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/Scfy-Code/IM/app/account/service"
+	"github.com/Scfy-Code/IM/sys"
 )
 
 type loginRouter struct {
@@ -22,7 +23,11 @@ func (lr loginRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			email    string = r.PostFormValue("email")
 			password string = r.PostFormValue("password")
 		)
-		lr.accountService.SelectAccount(email, password)
+		if lr.accountService.SelectAccount(email, password) {
+
+		}
+		var data map[string]interface{} = map[string]interface{}{"action": "login.action", "msg": "用户名或密码错误"}
+		sys.ReturnTemplate("login.scfy").Execute(w, data)
 	}
 }
 
