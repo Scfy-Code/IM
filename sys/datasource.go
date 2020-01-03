@@ -22,6 +22,10 @@ func init() {
 			fmt.Println(index)
 			continue
 		}
+		err = db.Ping()
+		if err != nil {
+			fmt.Println(err.Error())
+		}
 		sqlClients[config["clientName"]] = db
 	}
 }
